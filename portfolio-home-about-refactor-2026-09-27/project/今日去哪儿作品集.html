@@ -1,0 +1,1496 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>今日去哪儿 | PM/UX Case Study</title>
+  <style>
+    :root {
+      /* 背景：清澈高明度的纯净天蓝与治愈浅金交织，带来强烈的户外呼吸感 */
+      --bg-sky: #1C8DFF;
+      --bg-main: #EEF9FE;
+      --bg-cream: #FAF8F2;
+      --bg-card: rgba(255, 255, 255, 0.92);
+
+      /* 文字：深墨色降噪标题与优雅灰蓝正文，形成极高对比度 */
+      --text-primary: #091018;
+      --text-body: #2B3C48;
+      --text-muted: #667985;
+
+      /* 品牌标志性高亮 */
+      --brand-green: #76AA55;
+      --brand-orange: #FF9A4A;
+
+      /* 悬浮与边界：极其克制微弱的投影，制造空气感悬浮 */
+      --border-subtle: rgba(20, 91, 130, 0.05);
+      --shadow-float: 0 24px 60px rgba(27, 91, 121, 0.12);
+      --font-sans: "Inter", "SF Pro Display", "PingFang SC", sans-serif;
+
+      --ink: var(--text-primary);
+      --body: var(--text-body);
+      --muted: var(--text-muted);
+      --line: rgba(28, 141, 255, .038);
+      --blue: var(--bg-sky);
+      --blue-deep: #1678da;
+      --green: var(--brand-green);
+      --green-deep: #5F8D42;
+      --orange: var(--brand-orange);
+      --cream: var(--bg-cream);
+      --mint: #F0F8EA;
+      --sky: var(--bg-main);
+      --paper: var(--bg-card);
+      --paper-strong: rgba(255, 255, 255, .97);
+      --stroke: var(--border-subtle);
+      --shadow: var(--shadow-float);
+      --shadow-soft: 0 18px 46px rgba(27, 91, 121, .08);
+      --radius: 8px;
+      --font: var(--font-sans);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      width: 100%;
+      height: 100%;
+      scroll-behavior: smooth;
+      background: var(--bg-main);
+      overflow: hidden;
+    }
+
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--font);
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 14% 8%, rgba(255, 255, 255, .96), transparent 22%),
+        radial-gradient(circle at 86% 16%, rgba(250, 248, 242, .86), transparent 26%),
+        radial-gradient(circle at 78% 84%, rgba(118, 170, 85, .12), transparent 28%),
+        linear-gradient(135deg, var(--bg-main) 0%, #f7fcff 48%, var(--bg-cream) 100%);
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: .72;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a { color: inherit; }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 780px;
+      margin-bottom: clamp(22px, 2.4vw, 38px);
+      font-size: clamp(64px, 6vw, 96px);
+      line-height: 1.05;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      max-width: 1040px;
+      margin-bottom: 24px;
+      font-size: clamp(64px, 5.8vw, 92px);
+      line-height: 1.05;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin-bottom: 12px;
+      font-size: clamp(20px, 1.7vw, 30px);
+      line-height: 1.16;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .deck,
+    .portfolio-container {
+      width: min(100vw, 177.7778vh);
+      height: min(56.25vw, 100vh);
+      max-width: 1920px;
+      max-height: 1080px;
+      margin: 0 auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      border-radius: 0;
+      background: transparent;
+      overscroll-behavior: contain;
+    }
+
+    .deck::-webkit-scrollbar,
+    .portfolio-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .slide {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      min-height: 100%;
+      aspect-ratio: 16 / 9;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(64px, 6.4vw, 124px) clamp(72px, 7.2vw, 148px);
+      overflow: hidden;
+      border-bottom: 0;
+      background:
+        radial-gradient(circle at 16% 10%, rgba(255, 255, 255, .88), transparent 24%),
+        radial-gradient(circle at 88% 16%, rgba(250, 248, 242, .78), transparent 28%),
+        linear-gradient(135deg, var(--bg-main) 0%, #f8fdff 54%, var(--bg-cream) 100%);
+      isolation: isolate;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: clamp(18px, 1.8vw, 28px);
+      border: 0;
+      background:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .slide.blue {
+      color: white;
+      background:
+        radial-gradient(circle at 18% 14%, rgba(255,255,255,.28), transparent 22%),
+        linear-gradient(180deg, #37a0ff 0%, var(--bg-sky) 72%, #197be3 100%);
+    }
+
+    .meta,
+    .foot,
+    .slide-meta,
+    .slide-footer {
+      position: absolute;
+      left: clamp(28px, 3.2vw, 58px);
+      right: clamp(28px, 3.2vw, 58px);
+      z-index: 4;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      color: rgba(9, 16, 24, .50);
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .meta { top: clamp(18px, 2vw, 34px); }
+    .foot { bottom: clamp(18px, 2vw, 34px); }
+    .slide-meta {
+      padding-bottom: 12px;
+      border-bottom: 0;
+    }
+    .slide.blue .meta,
+    .slide.blue .foot,
+    .slide.blue .slide-meta,
+    .slide.blue .slide-footer { color: rgba(255, 255, 255, .68); }
+
+    .kicker,
+    .kicker-text {
+      margin-bottom: 18px;
+      color: var(--blue-deep);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .slide.blue .kicker { color: rgba(255,255,255,.74); }
+
+    .lead,
+    .lead-paragraph {
+      max-width: 780px;
+      margin-bottom: 0;
+      color: var(--body);
+      font-size: clamp(17px, 1.25vw, 24px);
+      line-height: 1.62;
+      font-weight: 650;
+    }
+
+    .slide.blue .lead { color: rgba(255,255,255,.84); }
+
+    .caption {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.68;
+      font-weight: 620;
+    }
+
+    .paper {
+      background: var(--paper);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(16px);
+    }
+
+    .flat-card {
+      min-width: 0;
+      padding: clamp(20px, 2vw, 34px);
+      background: var(--paper);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(14px);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: .88fr 1.12fr;
+      gap: clamp(36px, 5vw, 88px);
+      align-items: center;
+      width: 100%;
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .editorial-layout,
+    .feature-layout {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: clamp(40px, 5vw, 96px);
+      align-items: center;
+    }
+
+    .text-column,
+    .visual-column {
+      min-width: 0;
+    }
+
+    .main-title {
+      font-size: clamp(64px, 6vw, 96px);
+      font-weight: 950;
+      letter-spacing: 0;
+      line-height: 1.05;
+      margin: 1.2rem 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .product-nav {
+      position: absolute;
+      left: clamp(56px, 6.8vw, 132px);
+      right: clamp(56px, 6.8vw, 132px);
+      top: clamp(56px, 5.6vw, 86px);
+      z-index: 6;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: clamp(22px, 2.4vw, 40px);
+      align-items: center;
+      min-height: 50px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, .46);
+      border: 1px solid rgba(255, 255, 255, .58);
+      border-radius: var(--radius);
+      box-shadow: 0 18px 42px rgba(27, 91, 121, .07);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .nav-mark::before {
+      content: "";
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 64% 32%, white 0 14%, transparent 15%),
+        linear-gradient(145deg, var(--bg-sky), var(--brand-green));
+      box-shadow: inset 0 -4px 9px rgba(27, 91, 121, .12);
+    }
+
+    .product-nav nav {
+      display: flex;
+      justify-content: center;
+      gap: clamp(16px, 2.2vw, 36px);
+      min-width: 0;
+    }
+
+    .product-nav a {
+      color: rgba(9, 16, 24, .58);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .product-nav .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 15px;
+      color: white;
+      background: var(--text-primary);
+      border: 0;
+      border-radius: 6px;
+      box-shadow: 0 14px 30px rgba(27, 91, 121, .14);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      gap: clamp(36px, 4vw, 76px);
+      padding-top: clamp(118px, 10.4vw, 166px);
+      background:
+        radial-gradient(circle at 80% 16%, rgba(255, 255, 255, .92), transparent 24%),
+        radial-gradient(circle at 92% 82%, rgba(118, 170, 85, .16), transparent 28%),
+        linear-gradient(90deg, rgba(238, 249, 254, .98), rgba(255, 255, 255, .94) 48%, rgba(250, 248, 242, .70) 100%);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 3;
+      max-width: 840px;
+      align-self: center;
+    }
+
+    .hero .lead {
+      max-width: 640px;
+      font-size: clamp(16px, 1.08vw, 21px);
+      line-height: 1.62;
+    }
+
+    .hero h1 {
+      max-width: 690px;
+      margin-bottom: 20px;
+      font-size: clamp(68px, 6.2vw, 104px);
+      line-height: 1.05;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+      align-items: center;
+    }
+
+    .role-badge-container {
+      max-width: 650px;
+      margin-top: 22px;
+      padding: 18px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(14px);
+    }
+
+    .role-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      margin-bottom: 10px;
+      padding: 4px 8px;
+      color: var(--brand-green);
+      background: rgba(107, 170, 79, .1);
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .role-description {
+      margin-bottom: 0;
+      color: var(--text-primary);
+      font-size: 14px;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 7px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .cta.primary {
+      color: white;
+      background: var(--ink);
+      box-shadow: 0 14px 30px rgba(27, 91, 121, .16);
+    }
+
+    .cta.secondary {
+      color: #0d415f;
+      background: var(--paper-strong);
+      border: 1px solid var(--stroke);
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 720px;
+      margin-top: 18px;
+    }
+
+    .hero-meta .flat-card {
+      min-height: 86px;
+      padding: 16px 18px;
+      background: rgba(255, 255, 255, .78);
+      box-shadow: 0 14px 36px rgba(27, 91, 121, .06);
+    }
+
+    .hero-meta b {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--green-deep);
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .hero-meta span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+      font-weight: 650;
+    }
+
+    .hero-visual {
+      position: relative;
+      z-index: 2;
+      min-height: clamp(430px, 58vh, 640px);
+      padding: clamp(30px, 4vw, 70px);
+      display: grid;
+      place-items: center;
+      perspective: 1600px;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: clamp(30px, 4vw, 66px);
+      border-radius: 8px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, .9), rgba(248, 252, 250, .56));
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .mockup-pair {
+      position: relative;
+      width: min(44vw, 690px);
+      height: clamp(360px, 50vh, 560px);
+      transform-style: preserve-3d;
+    }
+
+    .iphone-frame {
+      position: absolute;
+      width: min(16.2vw, 252px);
+      aspect-ratio: 317 / 688;
+      padding: 10px;
+      background: linear-gradient(145deg, #1b232a, #343c41);
+      border: 1px solid rgba(255, 255, 255, .48);
+      border-radius: 38px;
+      box-shadow:
+        0 30px 58px rgba(27, 91, 121, .18),
+        inset 0 0 0 1px rgba(255, 255, 255, .12);
+      overflow: hidden;
+    }
+
+    .iphone-frame::before {
+      content: "";
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      width: 78px;
+      height: 22px;
+      transform: translateX(-50%);
+      z-index: 2;
+      border-radius: 999px;
+      background: #0c1217;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+    }
+
+    .iphone-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 29px;
+    }
+
+    .iphone-main {
+      left: 34%;
+      top: 0;
+      z-index: 3;
+      transform: rotateY(-16deg) rotateX(3deg) rotateZ(-4deg);
+    }
+
+    .iphone-secondary {
+      left: 4%;
+      top: 14%;
+      z-index: 2;
+      opacity: .95;
+      transform: rotateY(22deg) rotateX(2deg) rotateZ(7deg) scale(.9);
+    }
+
+    .context-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .role-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .role-item {
+      display: grid;
+      grid-template-columns: 132px 1fr;
+      gap: 22px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(20, 91, 130, .08);
+    }
+
+    .role-item b {
+      color: var(--blue-deep);
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .role-item span {
+      color: var(--body);
+      font-size: 15px;
+      line-height: 1.62;
+      font-weight: 650;
+    }
+
+    .evidence-wall {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 12px;
+      height: min(58vh, 610px);
+      padding: 10px;
+      background: rgba(255, 255, 255, .58);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .evidence-wall figure {
+      position: relative;
+      margin: 0;
+      overflow: hidden;
+      border-radius: var(--radius);
+    }
+
+    .evidence-wall figure:first-child { grid-row: span 2; }
+
+    .evidence-wall img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .evidence-wall figcaption {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      padding: 8px 10px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .82);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .data-layout {
+      display: grid;
+      grid-template-columns: .82fr 1.18fr;
+      gap: clamp(36px, 5vw, 86px);
+      align-items: center;
+      width: 100%;
+    }
+
+    .metric-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .metric-card {
+      padding: 24px 26px;
+      display: grid;
+      grid-template-columns: 128px 1fr;
+      gap: 20px;
+      align-items: center;
+      box-shadow: none;
+    }
+
+    .metric-card b {
+      color: var(--green-deep);
+      font-size: clamp(40px, 4vw, 72px);
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .pain-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .pain-card {
+      min-height: 210px;
+      background: rgba(255, 255, 255, .62);
+      box-shadow: none;
+    }
+
+    .pain-card .num {
+      display: block;
+      margin-bottom: 26px;
+      color: var(--green-deep);
+      font-size: 40px;
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .storyboard-container {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    .storyboard-card {
+      min-width: 0;
+      overflow: hidden;
+      background: var(--paper-strong);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .storyboard-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(126, 199, 232, .18), rgba(143, 178, 107, .14)),
+        #fffdf8;
+    }
+
+    .storyboard-frame::before {
+      content: attr(data-scene);
+      position: absolute;
+      inset: 16px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed rgba(95, 127, 70, .24);
+      border-radius: 6px;
+      color: rgba(95, 127, 70, .64);
+      font-size: 12px;
+      line-height: 1.5;
+      font-weight: 680;
+      text-align: center;
+      white-space: pre-line;
+    }
+
+    .storyboard-copy {
+      padding: 18px;
+    }
+
+    .storyboard-copy b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .definition-layout {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: clamp(36px, 5vw, 86px);
+      align-items: center;
+      width: 100%;
+    }
+
+    .priority-matrix {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .priority-card {
+      min-height: 168px;
+      padding: 22px;
+      border-radius: 7px;
+      background: rgba(255, 255, 255, .76);
+      border: 1px solid var(--stroke);
+    }
+
+    .priority-card.is-core {
+      color: var(--ink);
+      background:
+        linear-gradient(145deg, rgba(237, 247, 251, .96), rgba(237, 245, 234, .86));
+      border-color: rgba(95, 127, 70, .18);
+    }
+
+    .priority-card.is-core .caption { color: var(--body); }
+
+    .priority-card small {
+      display: inline-flex;
+      margin-bottom: 18px;
+      color: var(--green-deep);
+      opacity: 1;
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .feature-stack {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .feature-stack.feature-layout {
+      grid-template-columns: 1fr;
+      align-items: stretch;
+      padding: 0;
+    }
+
+    .feature-stack > div:first-child h2 {
+      max-width: 1100px;
+      margin-bottom: 0;
+      font-size: clamp(36px, 3.5vw, 58px);
+      line-height: 1.05;
+      font-weight: 950;
+    }
+
+    .feature-stack > div:first-child .kicker {
+      margin-bottom: 12px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+      min-height: 0;
+      height: min(58vh, 414px);
+    }
+
+    .feature {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 10px;
+      align-items: stretch;
+      min-height: 0;
+      padding: 14px;
+      overflow: hidden;
+      box-shadow: none;
+    }
+
+    .feature h3 {
+      margin-bottom: 10px;
+      font-size: clamp(20px, 1.75vw, 29px);
+      line-height: 1.08;
+    }
+
+    .feature-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      margin-bottom: 10px;
+      padding: 4px 8px;
+      color: var(--brand-green);
+      background: rgba(107, 170, 79, .1);
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .feature-points {
+      display: grid;
+      gap: 10px;
+      margin: 14px 0 0;
+      padding: 0;
+    }
+
+    .feature-points li {
+      list-style: none;
+      padding: 9px 10px;
+      color: var(--body);
+      background: rgba(255, 255, 255, .64);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      font-size: 12px;
+      line-height: 1.5;
+      font-weight: 650;
+    }
+
+    .screen-stage {
+      position: relative;
+      min-height: 0;
+      height: 166px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(237, 247, 251, .74), rgba(255, 253, 248, .72));
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+    }
+
+    .screen-stage img {
+      width: min(7.5vw, 106px);
+      border-radius: 16px;
+      filter: drop-shadow(0 18px 24px rgba(27, 91, 121, .13));
+      transition: transform .36s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .screen-stage img.large {
+      width: min(8.5vw, 124px);
+      z-index: 2;
+    }
+
+    .interactive-detail-card {
+      position: relative;
+    }
+
+    .tooltip-pointer {
+      position: absolute;
+      z-index: 5;
+      width: 10px;
+      height: 10px;
+      background: var(--bg-sky);
+      border-radius: 999px;
+      box-shadow: 0 0 0 4px rgba(107, 184, 230, .24);
+    }
+
+    .tooltip-text {
+      position: absolute;
+      left: 16px;
+      top: -8px;
+      width: max-content;
+      max-width: 185px;
+      padding: 7px 9px;
+      color: white;
+      background: var(--text-primary);
+      border-radius: 6px;
+      box-shadow: var(--shadow-soft);
+      font-size: 10px;
+      line-height: 1.45;
+      font-weight: 750;
+      text-align: left;
+    }
+
+    .tooltip-pointer.is-left .tooltip-text {
+      left: auto;
+      right: 16px;
+    }
+
+    .flat-card,
+    .paper,
+    .iphone-frame,
+    .system-board,
+    .board-row img {
+      transition: transform .36s cubic-bezier(.16, 1, .3, 1), box-shadow .36s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .flat-card:hover,
+      .paper:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 26px 62px rgba(27, 91, 121, .12);
+      }
+
+      .screen-stage:hover img.large,
+      .iphone-frame:hover {
+        transform: translateY(-4px) rotateY(-10deg) rotateX(2deg);
+      }
+
+      .iphone-secondary:hover {
+        transform: translateY(-4px) rotateY(18deg) rotateX(2deg) rotateZ(7deg) scale(.9);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+
+    .system-layout {
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: clamp(36px, 5vw, 86px);
+      align-items: center;
+      width: 100%;
+    }
+
+    .system-layout h2,
+    .output-layout h2 {
+      font-size: clamp(36px, 3.6vw, 62px);
+      line-height: 1.03;
+    }
+
+    .system-layout .lead,
+    .output-layout .lead {
+      font-size: clamp(15px, 1vw, 19px);
+      line-height: 1.52;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .type-spec,
+    .component-spec {
+      padding: 18px;
+    }
+
+    .type-spec b,
+    .component-spec b {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--green-deep);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .swatch {
+      min-height: 82px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      color: white;
+      border-radius: 4px;
+      font-size: 11px;
+      line-height: 1.45;
+      font-weight: 680;
+      box-shadow: inset 0 0 0 1px rgba(20, 91, 130, .05);
+    }
+
+    .swatch.light { color: var(--ink); }
+
+    .system-board {
+      height: min(46vh, 500px);
+      overflow: hidden;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--stroke);
+    }
+
+    .system-board img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .output-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .board-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+      min-height: min(32vh, 350px);
+      padding: 12px;
+      overflow: hidden;
+    }
+
+    .board-row figure {
+      margin: 0;
+      min-width: 0;
+    }
+
+    .board-row img {
+      width: 100%;
+      height: min(24vh, 270px);
+      object-fit: contain;
+      object-position: top center;
+      border-radius: 6px;
+      box-shadow: 0 18px 36px rgba(27, 91, 121, .10);
+      background: white;
+    }
+
+    .board-row figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 680;
+      text-transform: uppercase;
+    }
+
+    .reflection-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .reflection-row .flat-card {
+      padding: 18px;
+      box-shadow: none;
+    }
+
+    @media (max-width: 900px) {
+      html,
+      body {
+        height: auto;
+        min-height: 100%;
+        overflow: auto;
+      }
+
+      body { display: block; }
+
+      .deck,
+      .portfolio-container {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        overflow: visible;
+        scroll-snap-type: none;
+      }
+
+      .slide {
+        aspect-ratio: auto;
+        height: auto;
+        min-height: auto;
+        max-height: none;
+        padding: 86px 22px 62px;
+      }
+
+      .meta,
+      .foot {
+        left: 22px;
+        right: 22px;
+      }
+
+      .product-nav {
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        grid-template-columns: 1fr;
+        margin-bottom: 26px;
+      }
+
+      .product-nav nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+      }
+
+      .hero,
+      .grid-2,
+      .data-layout,
+      .definition-layout,
+      .feature,
+      .system-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero { padding-top: 86px; }
+
+      .hero-visual {
+        min-height: 500px;
+        padding: 24px;
+      }
+
+      .mockup-pair {
+        width: 100%;
+        height: 430px;
+      }
+
+      .iphone-frame { width: 210px; }
+      .iphone-main { left: 38%; }
+      .iphone-secondary { left: 4%; }
+
+      .hero-meta,
+      .context-cards,
+      .grid-3,
+      .pain-row,
+      .storyboard-container,
+      .priority-matrix,
+      .spec-grid,
+      .swatches,
+      .board-row,
+      .reflection-row {
+        grid-template-columns: 1fr;
+      }
+
+      .evidence-wall {
+        height: auto;
+        grid-template-columns: 1fr;
+      }
+
+      .evidence-wall figure:first-child { grid-row: auto; }
+      .evidence-wall img { height: auto; }
+
+      .metric-card,
+      .role-item {
+        grid-template-columns: 1fr;
+      }
+
+      .screen-stage {
+        min-height: auto;
+        justify-content: flex-start;
+        overflow-x: auto;
+      }
+
+      .screen-stage img,
+      .screen-stage img.large {
+        width: 210px;
+        min-width: 210px;
+      }
+
+      .system-board { height: auto; }
+      .board-row { min-height: auto; overflow: visible; }
+      .board-row img { height: auto; }
+      h1 { font-size: 52px; }
+      h2 { font-size: 44px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck portfolio-container">
+    <section class="slide hero" id="cover">
+      <div class="meta slide-meta"><span class="project-tag">AI DRIVE / URBAN MICRO-TOURISM</span><span class="page-number">01 / 08</span></div>
+      <div class="foot slide-footer"><span>PRODUCT x UX x UI / AI 出行决策助手</span><span>SECTION 01 / 08</span></div>
+      <div class="product-nav" aria-label="今日去哪儿页面导航">
+        <a class="nav-mark" href="../index.html?ref=ld-pro" title="返回 Rodin 作品集主页">← RODIN.DESIGN / 今日去哪儿</a>
+        <nav>
+          <a href="#context">项目背景</a>
+          <a href="#discovery">调研洞察</a>
+          <a href="#storyboard">场景故事</a>
+          <a href="#features">核心功能</a>
+        </nav>
+        <a class="nav-cta" href="../index.html?ref=ld-pro">← 返回主页</a>
+      </div>
+
+      <div class="hero-copy text-column">
+        <p class="kicker kicker-text">今日去哪儿｜城市微文旅的即时出行系统</p>
+        <h1 class="main-title">今天不宅了，去哪？</h1>
+        <p class="lead lead-paragraph">基于天气、位置、时间与心情，为年轻人生成一个今天就能执行的附近出门方案。这个 case 重点呈现我如何从产品策略、UX 推导到 UI 规范，把“想出门”压缩成“现在就走”。</p>
+        <div class="role-badge-container">
+          <span class="role-tag">负责人核心贡献</span>
+          <p class="role-description">主导从 0 到 1 的产品策略定位、全链路 UX 推导与高保真 UI 表达，并用 AI 工具链完成概念验证与作品集叙事整合。</p>
+        </div>
+        <div class="hero-meta" aria-label="产品核心价值">
+          <div class="flat-card"><b>PM</b><span>定义即时出门决策的产品边界与 MVP 策略。</span></div>
+          <div class="flat-card"><b>UX</b><span>把调研痛点转译为推荐、路线、召唤闭环。</span></div>
+          <div class="flat-card"><b>UI</b><span>建立低噪音视觉系统和可复用界面组件。</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual visual-column" aria-label="今日去哪儿高保真样机">
+        <div class="mockup-pair mockup-wrapper">
+          <figure class="iphone-frame iphone-secondary">
+            <img src="今日去哪儿/界面/路线探索.png" alt="路线探索界面样机" />
+          </figure>
+          <figure class="iphone-frame iphone-main">
+            <img src="今日去哪儿/界面/首页.png" alt="今日去哪儿首页界面样机" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="context">
+      <div class="meta slide-meta"><span class="project-tag">CONTEXT / ROLE</span><span class="page-number">02 / 08</span></div>
+      <div class="foot slide-footer"><span>PROJECT BOUNDARY / PERSONAL CONTRIBUTION</span><span>SECTION 02 / 08</span></div>
+      <div class="grid-2 slide-content editorial-layout">
+        <div class="text-column">
+          <p class="kicker">项目背景与我的角色</p>
+          <h2>一个围绕“即时出门决策”的概念型产品设计</h2>
+          <p class="lead">项目目标是验证年轻人在轻出行场景中，是否需要一个比地图、攻略和点评更靠近“行动启动”的产品入口。作品集重点展示产品判断、UX 推导和 UI 系统化表达。</p>
+          <div class="context-cards">
+            <div class="flat-card"><h3>产品</h3><p class="caption">定义目标用户、使用场景、核心痛点、功能边界与 MVP 验证方向。</p></div>
+            <div class="flat-card"><h3>UX</h3><p class="caption">梳理用户旅程，推导从推荐、路线、召唤到记录的行动闭环。</p></div>
+            <div class="flat-card"><h3>UI</h3><p class="caption">完成移动端核心界面、视觉规范、组件层级与展板表达。</p></div>
+          </div>
+        </div>
+        <div class="evidence-wall visual-column">
+          <figure><img src="今日去哪儿/调研照片/罗丹组会.png" alt="项目讨论现场" /><figcaption>共创讨论</figcaption></figure>
+          <figure><img src="今日去哪儿/调研照片/罗丹分享会.png" alt="方案分享现场" /><figcaption>方案评审</figcaption></figure>
+          <figure><img src="今日去哪儿/调研照片/罗丹组会1.png" alt="思考推演现场" /><figcaption>问题推演</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="discovery">
+      <div class="meta slide-meta"><span class="project-tag">DISCOVERY / DATA</span><span class="page-number">03 / 08</span></div>
+      <div class="foot slide-footer"><span>RESEARCH DATA / PAIN POINTS</span><span>SECTION 03 / 08</span></div>
+      <div class="data-layout slide-content editorial-layout">
+        <div class="text-column">
+          <p class="kicker">需求发现与痛点数据</p>
+          <h2>用户缺的不是地点信息，而是出门启动能力</h2>
+          <p class="lead">地图解决怎么去，攻略解决种草，点评解决吃什么；但在“今天想换个环境”的瞬间，用户仍然会被选择、准备和邀约三类摩擦拖回家里。</p>
+        </div>
+        <div class="visual-column">
+          <div class="metric-stack">
+            <div class="metric-card paper"><b>X%</b><p class="caption">调研用户表示：周末或下班后有出门念头，但经常因为“懒得做决定”而放弃。</p></div>
+            <div class="metric-card paper"><b>Xmin</b><p class="caption">一次轻出行前，用户平均需要在多个平台之间搜索、收藏、比较和确认路线。</p></div>
+            <div class="metric-card paper"><b>X/10</b><p class="caption">用户对“有人直接给我一个今天可执行方案”的期待评分占位。</p></div>
+          </div>
+          <div class="pain-row">
+            <div class="pain-card flat-card"><span class="num">01</span><h3>选择疲劳</h3><p class="caption">信息越多，越不知道哪个适合今天。</p></div>
+            <div class="pain-card flat-card"><span class="num">02</span><h3>准备成本</h3><p class="caption">路线、预算、天气、装备让轻出行变重。</p></div>
+            <div class="pain-card flat-card"><span class="num">03</span><h3>邀约压力</h3><p class="caption">正式邀请会放大拒绝和沟通成本。</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide blue" id="storyboard">
+      <div class="meta slide-meta"><span class="project-tag">USER STORYBOARD</span><span class="page-number">04 / 08</span></div>
+      <div class="foot slide-footer"><span>EDITORIAL SCENARIO / FROM BOREDOM TO ACTION</span><span>SECTION 04 / 08</span></div>
+      <div class="slide-content">
+        <p class="kicker">场景故事板</p>
+        <h2>从宅家无聊，到一键召唤出门</h2>
+        <p class="lead">这里预留 AI 分镜插图位置。后续可替换为统一画风的 16:9 场景图，形成“情绪低谷 - 决策介入 - 行动确认 - 社交扩散”的完整故事链。</p>
+        <div class="storyboard-container">
+          <article class="storyboard-card">
+            <div class="storyboard-frame" data-scene="AI ILLUSTRATION SLOT 01&#10;宅家无聊 / 想换环境"></div>
+            <div class="storyboard-copy"><b>01 触发</b><p class="caption">用户在家反复刷手机，想出门但没有明确目的地。</p></div>
+          </article>
+          <article class="storyboard-card">
+            <div class="storyboard-frame" data-scene="AI ILLUSTRATION SLOT 02&#10;打开 App / 输入当下状态"></div>
+            <div class="storyboard-copy"><b>02 识别</b><p class="caption">系统读取天气、位置、时间，并让用户补充心情和预算。</p></div>
+          </article>
+          <article class="storyboard-card">
+            <div class="storyboard-frame" data-scene="AI ILLUSTRATION SLOT 03&#10;获得今日方案 / 一键确认"></div>
+            <div class="storyboard-copy"><b>03 决策</b><p class="caption">推荐页直接给出“今天可去”的方案、路线与准备清单。</p></div>
+          </article>
+          <article class="storyboard-card">
+            <div class="storyboard-frame" data-scene="AI ILLUSTRATION SLOT 04&#10;发起召唤 / 朋友加入"></div>
+            <div class="storyboard-copy"><b>04 行动</b><p class="caption">用户先出发，再用低压力召唤邀请附近朋友自然加入。</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="definition">
+      <div class="meta slide-meta"><span class="project-tag">DEFINITION / MVP</span><span class="page-number">05 / 08</span></div>
+      <div class="foot slide-footer"><span>PRODUCT DEFINITION / MVP STRATEGY</span><span>SECTION 05 / 08</span></div>
+      <div class="definition-layout slide-content editorial-layout">
+        <div class="text-column">
+          <p class="kicker">产品定义与 MVP 策略</p>
+          <h2>把连续决策压缩成一个“今日出门答案”</h2>
+          <p class="lead">MVP 不追求覆盖所有生活服务，而是优先验证用户是否愿意接受“系统替我做第一次选择”。因此首页推荐、出门卡和召唤链路被放在最高优先级。</p>
+        </div>
+        <div class="priority-matrix paper visual-column" aria-label="功能优先级矩阵">
+          <div class="priority-card is-core"><small>High impact / Low effort</small><h3>今日推荐</h3><p class="caption">首屏给答案，减少地点信息流带来的继续筛选。</p></div>
+          <div class="priority-card is-core"><small>High impact / Medium effort</small><h3>出门卡片</h3><p class="caption">把路线、预算、天气、准备清单合并成行动确认页。</p></div>
+          <div class="priority-card"><small>Medium impact / Medium effort</small><h3>今日召唤</h3><p class="caption">基于已确认的出门状态，降低邀约的心理门槛。</p></div>
+          <div class="priority-card"><small>Later iteration</small><h3>成长记录</h3><p class="caption">把出门偏好沉淀为下一次推荐的个人化反馈。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="features">
+      <div class="meta slide-meta"><span class="project-tag">CORE EXPERIENCE / LAZY MODE</span><span class="page-number">06 / 08</span></div>
+      <div class="foot slide-footer"><span>INFORMATION HIERARCHY / CORE SCREENS</span><span>SECTION 06 / 08</span></div>
+      <div class="feature-stack slide-content feature-layout">
+        <div>
+          <p class="kicker">核心功能深度推演</p>
+          <h2>三个功能页共同服务一件事：少想一点，快走一步</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature paper">
+            <div>
+              <p class="kicker feature-badge">核心亮点 01</p>
+              <h3>首页不是信息流，而是当日答案</h3>
+              <p class="caption">信息层级优先展示目的地结论、距离、体验标签和主行动按钮，弱化长列表。</p>
+              <ul class="feature-points">
+                <li>顶部放置当前情境，让推荐理由可解释。</li>
+                <li>主卡片只承载一个最优解，减少备选干扰。</li>
+              </ul>
+            </div>
+            <div class="screen-stage interactive-detail-card">
+              <img class="large" src="今日去哪儿/界面/首页.png" alt="首页推荐界面" />
+              <img src="今日去哪儿/界面/搜索结果.png" alt="搜索结果界面" />
+              <div class="tooltip-pointer" style="top: 24%; left: 52%;"><span class="tooltip-text">PM 策略：首屏去除瀑布流，直接给“今日唯一解”。</span></div>
+            </div>
+          </article>
+          <article class="feature paper">
+            <div>
+              <p class="kicker feature-badge">核心亮点 02</p>
+              <h3>出门卡把准备成本前置消化</h3>
+              <p class="caption">路线页把时间、交通、预算和携带物转译为用户出发前能确认的信息。</p>
+              <ul class="feature-points">
+                <li>先给总体耗时和花费，再给路线细节。</li>
+                <li>准备清单作为辅助确认，降低临出门焦虑。</li>
+              </ul>
+            </div>
+            <div class="screen-stage interactive-detail-card">
+              <img src="今日去哪儿/界面/路线探索.png" alt="路线探索界面" />
+              <img class="large" src="今日去哪儿/界面/路线详情-1.png" alt="路线详情界面" />
+              <img src="今日去哪儿/界面/出门卡片.png" alt="出门卡片界面" />
+              <div class="tooltip-pointer is-left" style="top: 28%; left: 58%;"><span class="tooltip-text">UX 取舍：先给确定性，再展开路线细节。</span></div>
+            </div>
+          </article>
+          <article class="feature paper">
+            <div>
+              <p class="kicker feature-badge">核心亮点 03</p>
+              <h3>先展示行动状态，再发起轻邀约</h3>
+              <p class="caption">把“你要不要出来”改写为“我已准备出发，你可以加入”，降低决策成本。</p>
+              <ul class="feature-points">
+                <li>出门卡是信息完整且低打扰的分享载体。</li>
+                <li>同行小队同步集合点、成员状态和消息通知。</li>
+              </ul>
+            </div>
+            <div class="screen-stage interactive-detail-card">
+              <img src="今日去哪儿/界面/出门计划.png" alt="出门计划界面" />
+              <img class="large" src="今日去哪儿/界面/同行小队.png" alt="同行小队界面" />
+              <img src="今日去哪儿/界面/消息通知.png" alt="消息通知界面" />
+              <div class="tooltip-pointer is-left" style="top: 25%; left: 62%;"><span class="tooltip-text">社交设计：用行动状态替代正式邀约压力。</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="system">
+      <div class="meta slide-meta"><span class="project-tag">DESIGN SYSTEM</span><span class="page-number">07 / 08</span></div>
+      <div class="foot slide-footer"><span>VISUAL SPEC / COMPONENT SCALE</span><span>SECTION 07 / 08</span></div>
+      <div class="system-layout slide-content editorial-layout">
+        <div class="text-column">
+          <p class="kicker">设计系统与设计规范</p>
+          <h2>视觉去噪：让晴空蓝服务信息，而不是抢走注意力</h2>
+          <p class="lead">保留“轻松、当下、附近生活”的品牌感，但降低背景装饰和玻璃拟态重量。组件字阶围绕决策效率设置：结论最大，理由次之，辅助信息保持克制。</p>
+          <div class="swatches">
+            <div class="swatch" style="background:#76aa55;">#76AA55<br />行动绿</div>
+            <div class="swatch" style="background:#5bb8f0;">#5BB8F0<br />晴空蓝</div>
+            <div class="swatch light" style="background:#fbfaf3;">#FBFAF3<br />奶油白</div>
+            <div class="swatch" style="background:#ff9a4a;">#FF9A4A<br />日落橙</div>
+            <div class="swatch" style="background:#091018;">#091018<br />标题黑</div>
+          </div>
+          <div class="spec-grid">
+            <div class="type-spec flat-card"><b>Type scale</b><p class="caption">H1 48-92 / H2 44-92 / Card 20-30 / Body 14-24，避免首屏“黑砖感”。</p></div>
+            <div class="component-spec flat-card"><b>Components</b><p class="caption">卡片半径统一 8px，按钮 44px 起，屏幕图使用固定宽高比容器避免排版死角。</p></div>
+          </div>
+        </div>
+        <div class="system-board visual-column">
+          <img src="今日去哪儿/展板/2.png" alt="界面总览与设计规范展板" />
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="output">
+      <div class="meta slide-meta"><span class="project-tag">OUTPUT / REFLECTION</span><span class="page-number">08 / 08</span></div>
+      <div class="foot slide-footer"><span>FULL BOARDS / NEXT ITERATION</span><span>SECTION 08 / 08</span></div>
+      <div class="output-layout slide-content">
+        <div class="text-column">
+          <p class="kicker">全局展板与未来反思</p>
+          <h2>完整项目输出，以及下一步如何继续验证</h2>
+          <p class="lead">现阶段输出包括产品概念、调研洞察、核心链路、移动端界面和视觉规范。下一步需要用真实场景任务测试推荐解释、路线可信度和召唤转化。</p>
+          <div class="reflection-row">
+            <div class="flat-card"><h3>验证推荐质量</h3><p class="caption">用“是否愿意立刻出发”而不是点击率评估首页推荐。</p></div>
+            <div class="flat-card"><h3>补足数据闭环</h3><p class="caption">记录放弃原因、出门完成率和召唤响应率，反哺策略。</p></div>
+            <div class="flat-card"><h3>细化商业边界</h3><p class="caption">探索附近生活服务合作，但不让商业信息破坏决策效率。</p></div>
+          </div>
+        </div>
+        <div class="board-row paper">
+          <figure><img src="今日去哪儿/展板/1.png" alt="今日去哪儿展板 1" /><figcaption>Board 01</figcaption></figure>
+          <figure><img src="今日去哪儿/展板/2.png" alt="今日去哪儿展板 2" /><figcaption>Board 02</figcaption></figure>
+          <figure><img src="今日去哪儿/展板/3.png" alt="今日去哪儿展板 3" /><figcaption>Board 03</figcaption></figure>
+          <figure><img src="今日去哪儿/展板/4.png" alt="今日去哪儿展板 4" /><figcaption>Board 04</figcaption></figure>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

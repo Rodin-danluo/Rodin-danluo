@@ -1,0 +1,1422 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>小匠行 XIAOJIANGGO | 城市非遗亲子探索 App 作品集</title>
+  <meta name="description" content="小匠行 XIAOJIANGGO 城市非遗亲子探索 App 产品经理与 UIUX 设计作品集。" />
+  <style>
+    :root {
+      --canvas: #f7f1e4;
+      --canvas-2: #fffaf0;
+      --primary: #2e8b6e;
+      --primary-deep: #145f55;
+      --primary-soft: #d8ebe3;
+      --accent: #f6c86a;
+      --accent-soft: #fff0bd;
+      --ink: #101414;
+      --muted: #63706c;
+      --line: rgba(46, 139, 110, .16);
+      --line-strong: rgba(46, 139, 110, .28);
+      --card: rgba(255, 250, 240, .78);
+      --card-solid: #fffaf0;
+      --glass: rgba(255, 255, 255, .52);
+      --shadow: 0 28px 80px rgba(25, 82, 70, .14);
+      --shadow-soft: 0 18px 46px rgba(25, 82, 70, .09);
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --max: 1440px;
+      --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-serif: "Noto Serif SC", "Songti SC", STSong, serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--canvas);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.2;
+      background:
+        radial-gradient(circle at 16% 10%, rgba(255, 255, 255, .95), transparent 28%),
+        radial-gradient(circle at 86% 16%, rgba(176, 222, 209, .36), transparent 30%),
+        linear-gradient(rgba(46, 139, 110, .032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46, 139, 110, .028) 1px, transparent 1px),
+        linear-gradient(180deg, #f7f1e4 0%, #f1f7ee 48%, #fffaf0 100%);
+      background-size: auto, auto, 88px 88px, 88px 88px, auto;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(247, 241, 228, .94), rgba(247, 241, 228, .72), rgba(247, 241, 228, .94)),
+        url("小匠行/展板/A3-1.jpg") center bottom / cover no-repeat;
+      opacity: .16;
+      filter: blur(5px) saturate(.82);
+      transform: scale(1.04);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .54), transparent 34%, rgba(255, 250, 240, .7)),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.18) 0 1px, transparent 1px 14px);
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    p, h1, h2, h3, h4, figure {
+      margin: 0;
+    }
+
+    p {
+      line-height: 1.22;
+    }
+
+    .nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      height: 72px;
+      min-height: 72px;
+      max-height: 72px;
+      padding: 0 clamp(22px, 4vw, 76px);
+      box-sizing: border-box;
+      border-bottom: 1px solid rgba(46, 139, 110, .12);
+      background: rgba(247, 241, 228, .78);
+      backdrop-filter: blur(22px);
+      color: var(--primary-deep);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      overflow: hidden;
+    }
+
+    .nav__brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      white-space: nowrap;
+    }
+
+    .nav__brand::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 0 6px rgba(46, 139, 110, .12);
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: clamp(18px, 3vw, 42px);
+    }
+
+    .nav__links a {
+      opacity: .78;
+      transition: opacity .2s ease, color .2s ease;
+    }
+
+    .nav__links a:hover {
+      opacity: 1;
+      color: #0c4e46;
+    }
+
+    main {
+      width: min(100%, 1920px);
+      margin: 0 auto;
+    }
+
+    .section {
+      position: relative;
+      padding: clamp(98px, 9vw, 162px) clamp(22px, 5vw, 92px);
+      overflow: hidden;
+      border-bottom: 1px solid rgba(46, 139, 110, .09);
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      inset: 24px;
+      pointer-events: none;
+      border: 1px solid rgba(46, 139, 110, .08);
+      border-radius: var(--radius-lg);
+    }
+
+    .section__inner {
+      position: relative;
+      z-index: 2;
+      width: min(100%, var(--max));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      align-items: center;
+      padding-top: clamp(112px, 10vw, 176px);
+    }
+
+    .hero__grid {
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      gap: clamp(40px, 6vw, 104px);
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px 13px;
+      margin-bottom: 18px;
+      color: var(--primary-deep);
+      font-size: clamp(12px, 1vw, 15px);
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: currentColor;
+      opacity: .44;
+    }
+
+    h1 {
+      margin-bottom: 22px;
+      color: var(--ink);
+      font-size: clamp(72px, 10vw, 174px);
+      line-height: .86;
+      font-weight: 1000;
+      letter-spacing: 0;
+    }
+
+    h1 .cn {
+      display: block;
+      font-family: var(--font-serif);
+      font-weight: 900;
+    }
+
+    h1 .en {
+      display: block;
+      font-size: clamp(40px, 6.8vw, 116px);
+      font-weight: 1000;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      max-width: 1180px;
+      margin-bottom: 22px;
+      color: var(--ink);
+      font-size: clamp(26px, 3vw, 48px);
+      line-height: 1.04;
+      font-weight: 1000;
+      letter-spacing: 0;
+      text-wrap: balance;
+      white-space: nowrap;
+    }
+
+    .overview-title {
+      max-width: none;
+      font-size: clamp(26px, 3vw, 48px);
+      line-height: 1.04;
+    }
+
+    .role-title {
+      max-width: none;
+      font-size: clamp(26px, 2.8vw, 44px);
+      line-height: 1.04;
+    }
+
+    h2 .serif,
+    h3 .serif {
+      font-family: var(--font-serif);
+    }
+
+    h3 {
+      margin-bottom: 12px;
+      color: var(--ink);
+      font-size: clamp(22px, 1.9vw, 32px);
+      line-height: 1.12;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    h4 {
+      margin-bottom: 8px;
+      color: var(--primary-deep);
+      font-size: 15px;
+      line-height: 1.15;
+      font-weight: 950;
+    }
+
+    .lead {
+      max-width: 850px;
+      color: #2a3935;
+      font-size: clamp(18px, 1.45vw, 26px);
+      line-height: 1.22;
+      font-weight: 760;
+    }
+
+    .text {
+      color: var(--muted);
+      font-size: clamp(14px, 1vw, 17px);
+      line-height: 1.24;
+      font-weight: 620;
+    }
+
+    .text strong {
+      color: var(--primary-deep);
+      font-weight: 950;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 9px 14px;
+      border: 1px solid rgba(46, 139, 110, .18);
+      border-radius: 999px;
+      background: rgba(255, 250, 240, .7);
+      color: var(--primary-deep);
+      font-size: 12px;
+      line-height: 1.15;
+      font-weight: 900;
+      box-shadow: 0 12px 28px rgba(25, 82, 70, .06);
+    }
+
+    .tag.is-accent {
+      border-color: rgba(246, 200, 106, .55);
+      background: rgba(246, 200, 106, .2);
+      color: #72551c;
+    }
+
+    .hero__media {
+      position: relative;
+      min-height: 620px;
+      perspective: 1800px;
+    }
+
+    .phone {
+      position: absolute;
+      width: min(23vw, 318px);
+      min-width: 188px;
+      transform-style: preserve-3d;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .phone img {
+      width: 100%;
+      border-radius: 30px;
+    }
+
+    .phone--home {
+      left: 3%;
+      top: 82px;
+      z-index: 2;
+      transform: rotateZ(-8deg) rotateY(14deg) scale(.88);
+      animation-delay: -1.1s;
+    }
+
+    .phone--splash {
+      left: 32%;
+      top: 0;
+      z-index: 4;
+      width: min(24.5vw, 344px);
+      transform: rotateZ(1deg) rotateY(-3deg);
+    }
+
+    .phone--explore {
+      right: 1%;
+      top: 92px;
+      z-index: 1;
+      transform: rotateZ(8deg) rotateY(-14deg) scale(.88);
+      animation-delay: -2.2s;
+    }
+
+    @keyframes float {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 -18px; }
+    }
+
+    .seal {
+      position: absolute;
+      right: 2%;
+      top: 0;
+      z-index: 6;
+      display: grid;
+      place-items: center;
+      width: 132px;
+      height: 132px;
+      border: 2px solid rgba(20, 95, 85, .75);
+      border-radius: 50%;
+      background: rgba(255, 250, 240, .45);
+      color: var(--primary-deep);
+      font-size: 12px;
+      line-height: 1.18;
+      font-weight: 1000;
+      text-align: center;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+    }
+
+    .route {
+      position: absolute;
+      left: -6%;
+      right: 3%;
+      bottom: 58px;
+      height: 180px;
+      border-bottom: 3px dashed rgba(46, 139, 110, .26);
+      border-radius: 50%;
+      transform: rotate(-4deg);
+    }
+
+    .glass {
+      position: absolute;
+      left: 2%;
+      top: 50%;
+      width: 88px;
+      height: 78px;
+      border: 1px solid rgba(46,139,110,.32);
+      border-radius: 44% 44% 48% 48%;
+      transform: rotate(-15deg);
+      background:
+        radial-gradient(circle at 28% 24%, rgba(255,255,255,.98), transparent 26%),
+        linear-gradient(135deg, rgba(255,255,255,.78), rgba(46,139,110,.22));
+      box-shadow: inset 0 0 24px rgba(255,255,255,.9), 0 20px 44px rgba(25,82,70,.15);
+    }
+
+    .plane {
+      position: absolute;
+      left: 8%;
+      bottom: 108px;
+      width: 0;
+      height: 0;
+      border-left: 58px solid transparent;
+      border-right: 22px solid transparent;
+      border-bottom: 36px solid var(--primary);
+      transform: rotate(20deg);
+      filter: drop-shadow(0 18px 18px rgba(22, 77, 67, .18));
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+      gap: clamp(30px, 5vw, 80px);
+      align-items: end;
+      margin-bottom: clamp(38px, 5vw, 74px);
+    }
+
+    .section-head .lead {
+      max-width: 980px;
+    }
+
+    .module-no {
+      justify-self: end;
+      display: grid;
+      place-items: center;
+      width: 132px;
+      height: 132px;
+      border: 1px solid rgba(46,139,110,.22);
+      border-radius: 50%;
+      background: rgba(255,250,240,.62);
+      color: var(--primary-deep);
+      font-size: 13px;
+      line-height: 1.15;
+      font-weight: 1000;
+      text-align: center;
+      text-transform: uppercase;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      padding: clamp(22px, 2.4vw, 36px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      pointer-events: none;
+      border-radius: calc(var(--radius-lg) - 1px);
+      background: linear-gradient(135deg, rgba(255,255,255,.42), transparent 34%);
+      opacity: .72;
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .span-3 { grid-column: span 3; }
+    .span-4 { grid-column: span 4; }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .span-7 { grid-column: span 7; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+
+    .metric {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--primary);
+      font-size: clamp(42px, 5vw, 78px);
+      line-height: .92;
+      font-weight: 1000;
+    }
+
+    .role-card {
+      min-height: 280px;
+    }
+
+    .role-photo {
+      margin-top: 24px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      border: 1px solid rgba(46,139,110,.14);
+      border-radius: 18px;
+      background: rgba(46,139,110,.08);
+    }
+
+    .role-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .role-label {
+      display: inline-flex;
+      margin-bottom: 20px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: white;
+      font-size: 12px;
+      line-height: 1.15;
+      font-weight: 950;
+    }
+
+    .contribution-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .contribution {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid rgba(46,139,110,.12);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,.46);
+    }
+
+    .contribution b {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: rgba(46,139,110,.12);
+      color: var(--primary-deep);
+      font-size: 15px;
+      font-weight: 1000;
+    }
+
+    .persona {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .persona__avatar {
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      width: 92px;
+      height: 92px;
+      border: 1px solid rgba(46,139,110,.18);
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(46,139,110,.16), rgba(246,200,106,.18));
+      color: var(--primary-deep);
+      font-size: 34px;
+      font-weight: 1000;
+    }
+
+    .persona__avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .journey {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .journey-step {
+      min-height: 220px;
+      padding: 22px;
+      border: 1px solid rgba(46,139,110,.14);
+      border-radius: var(--radius-lg);
+      background: rgba(255,250,240,.8);
+      box-shadow: 0 14px 36px rgba(25,82,70,.07);
+    }
+
+    .journey-step span {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      font-size: 15px;
+      font-weight: 1000;
+    }
+
+    .ia-flow {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+      align-items: end;
+      margin-top: 28px;
+    }
+
+    .ia-step {
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+      align-content: start;
+      padding: 16px 14px 18px;
+      border: 1px solid rgba(46,139,110,.14);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,.5);
+    }
+
+    .ia-step figure {
+      width: min(100%, 128px);
+    }
+
+    .ia-step img {
+      width: 100%;
+      border-radius: 18px;
+    }
+
+    .ia-node {
+      color: var(--primary-deep);
+      text-align: center;
+    }
+
+    .ia-node b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--ink);
+      font-size: clamp(15px, 1.1vw, 18px);
+      line-height: 1.12;
+      font-weight: 950;
+    }
+
+    .ia-node span {
+      display: block;
+      color: var(--muted);
+      font-size: clamp(11px, .82vw, 13px);
+      line-height: 1.24;
+      font-weight: 720;
+    }
+
+    @media (max-width: 1080px) {
+      .ia-flow {
+        grid-template-columns: repeat(6, 158px);
+        overflow-x: auto;
+        padding-bottom: 8px;
+      }
+    }
+
+    .solution-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(22px, 3vw, 34px);
+    }
+
+    .screen-card {
+      display: grid;
+      grid-template-columns: minmax(180px, 300px) 1fr;
+      gap: clamp(20px, 3vw, 36px);
+      align-items: center;
+      min-height: 560px;
+      padding: clamp(20px, 2.4vw, 34px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255,250,240,.82);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .screen-card figure {
+      justify-self: center;
+      width: min(100%, 270px);
+    }
+
+    .screen-card figure img {
+      border-radius: 30px;
+    }
+
+    .pm-label {
+      display: inline-flex;
+      align-items: center;
+      margin: 20px 0 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(246,200,106,.28);
+      color: #76551a;
+      font-size: 12px;
+      line-height: 1.15;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .boards {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .board {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(46,139,110,.18);
+      border-radius: var(--radius-lg);
+      background: rgba(255,250,240,.78);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .board img {
+      width: 100%;
+      transition: transform .45s ease;
+    }
+
+    .board:hover img {
+      transform: scale(1.035);
+    }
+
+    .board figcaption {
+      padding: 18px;
+      color: var(--primary-deep);
+      font-size: 13px;
+      line-height: 1.18;
+      font-weight: 950;
+    }
+
+    .business-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .roadmap-item {
+      min-height: 156px;
+      padding: 24px;
+      border: 1px solid rgba(46,139,110,.14);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,.48);
+    }
+
+    .final-lockup {
+      margin-top: clamp(52px, 6vw, 90px);
+      padding: clamp(28px, 4vw, 58px);
+      border: 1px solid rgba(46,139,110,.2);
+      border-radius: 32px;
+      background:
+        linear-gradient(135deg, rgba(46,139,110,.92), rgba(20,95,85,.92)),
+        url("小匠行/展板/A3-1.jpg") center / cover no-repeat;
+      color: white;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .final-lockup h2,
+    .final-lockup .lead,
+    .final-lockup .text,
+    .final-lockup .eyebrow {
+      color: white;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 42px;
+      color: rgba(255,255,255,.72);
+      font-size: 12px;
+      line-height: 1.15;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .72s ease, transform .72s ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1280px) {
+      .hero__grid,
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .module-no {
+        justify-self: start;
+      }
+
+      .hero__media {
+        min-height: 650px;
+      }
+
+      .phone {
+        width: min(34vw, 330px);
+      }
+
+      .span-3,
+      .span-4,
+      .span-5,
+      .span-6,
+      .span-7,
+      .span-8 {
+        grid-column: span 6;
+      }
+
+      .journey,
+      .business-grid,
+      .boards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .solution-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        height: 64px;
+        min-height: 64px;
+        max-height: 64px;
+        padding: 0 18px;
+      }
+
+      .nav__links {
+        display: none;
+      }
+
+      .section {
+        padding: 88px 18px;
+      }
+
+      .section::before {
+        inset: 10px;
+        border-radius: 18px;
+      }
+
+      h1 {
+        font-size: clamp(58px, 18vw, 96px);
+      }
+
+      h1 .en {
+        font-size: clamp(34px, 11.8vw, 62px);
+      }
+
+      h2 {
+        font-size: clamp(14px, 4.6vw, 28px);
+      }
+
+      .overview-title {
+        font-size: clamp(14px, 4.6vw, 28px);
+      }
+
+      .role-title {
+        font-size: clamp(14px, 4.6vw, 28px);
+      }
+
+      .hero__media {
+        min-height: 520px;
+      }
+
+      .phone {
+        width: 48vw;
+        min-width: 146px;
+        border-radius: 26px;
+      }
+
+      .phone img {
+        border-radius: 22px;
+      }
+
+      .phone--home {
+        left: -2%;
+        top: 88px;
+      }
+
+      .phone--splash {
+        left: 26%;
+        top: 8px;
+        width: 50vw;
+      }
+
+      .phone--explore {
+        right: -3%;
+        top: 100px;
+      }
+
+      .seal {
+        width: 86px;
+        height: 86px;
+        font-size: 10px;
+      }
+
+      .bento,
+      .journey,
+      .solution-grid,
+      .boards,
+      .business-grid,
+      .roadmap {
+        grid-template-columns: 1fr;
+      }
+
+      .ia-step {
+        min-width: 120px;
+      }
+
+      .span-3,
+      .span-4,
+      .span-5,
+      .span-6,
+      .span-7,
+      .span-8,
+      .span-12 {
+        grid-column: span 1;
+      }
+
+      .screen-card {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .screen-card figure {
+        width: min(84vw, 300px);
+      }
+
+      .contribution,
+      .persona {
+        grid-template-columns: 1fr;
+      }
+
+      .footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="作品集导航">
+    <a class="nav__brand" href="../index.html?ref=ld-pro" title="返回 Rodin 作品集主页">← RODIN.DESIGN / 小匠行</a>
+    <div class="nav__links">
+      <a href="#overview">Overview</a>
+      <a href="#role">Role</a>
+      <a href="#research">Research</a>
+      <a href="#screens">Screens</a>
+      <a href="#boards">Boards</a>
+      <a href="../index.html?ref=ld-pro">← Home</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section hero" id="hero">
+      <div class="section__inner hero__grid">
+        <div class="reveal">
+          <p class="eyebrow">Product Strategy <span class="dot"></span> UX Research <span class="dot"></span> UI Design</p>
+          <h1><span class="cn">小匠行</span><span class="en">XIAOJIANGGO</span></h1>
+          <p class="lead">让城市成为孩子的课堂。</p>
+          <p class="text" style="max-width: 780px; margin-top: 18px;">城市非遗亲子探索 App —— 把周末出行转化为可探索、可互动、可记录的家庭文化成长体验。</p>
+          <div class="tag-row" aria-label="项目标签">
+            <span class="tag is-accent">2026 Product Case Study</span>
+            <span class="tag">城市非遗研学</span>
+            <span class="tag">亲子探索 App</span>
+            <span class="tag">新中式现代人文风</span>
+          </div>
+        </div>
+
+        <div class="hero__media reveal" aria-label="小匠行手机界面悬浮展示">
+          <figure class="phone phone--home"><img src="小匠行/界面/首页.png" alt="小匠行首页界面" /></figure>
+          <figure class="phone phone--splash"><img src="小匠行/界面/启动页.png" alt="小匠行启动页界面" /></figure>
+          <figure class="phone phone--explore"><img src="小匠行/界面/探索页.png" alt="小匠行探索页界面" /></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="overview">
+      <div class="section__inner">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">01 / Overview / STAR Context</p>
+            <h2 class="overview-title">从“周末去哪儿”到“孩子学到了什么”。</h2>
+            <p class="lead">小匠行面向年轻家庭，将城市非遗资源重构为路线、任务、互动与成长档案，解决亲子出游同质化、儿童文化参与弱、体验成果难沉淀的问题。</p>
+          </div>
+          <div class="module-no">Project<br />Snapshot</div>
+        </div>
+
+        <div class="bento">
+          <article class="card span-3 reveal">
+            <span class="metric">B2C</span>
+            <h3>家庭出游决策</h3>
+            <p class="text">围绕年轻父母的路线规划、教育意义和安全感，降低周末出行决策成本。</p>
+          </article>
+          <article class="card span-3 reveal">
+            <span class="metric">5-12</span>
+            <h3>儿童体验者</h3>
+            <p class="text">用故事化任务、挑战和即时奖励，让儿童从被动参观转为主动探索。</p>
+          </article>
+          <article class="card span-3 reveal">
+            <span class="metric">7</span>
+            <h3>核心体验环节</h3>
+            <p class="text">发现任务、查看点位、地图前往、实地探索、AR 识别、奖励反馈、成长记录。</p>
+          </article>
+          <article class="card span-3 reveal">
+            <span class="metric">IA</span>
+            <h3>功能闭环</h3>
+            <p class="text">首页、地图、任务、图鉴、成长档案与个人中心形成可持续回访路径。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="role">
+      <div class="section__inner">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">02 / My Role & Impact</p>
+            <h2 class="role-title">从机会洞察到全链路落地，主导产品从 0 到 1。</h2>
+            <p class="lead">我在项目中承担团队负责人 / 产品经理角色，主导从 0 到 1 的产品定义、体验链路推导、视觉方向协同与最终提案交付。</p>
+          </div>
+          <div class="module-no">PM &<br />Leader</div>
+        </div>
+
+        <div class="bento">
+          <article class="card span-4 role-card reveal">
+            <span class="role-label">Product Manager & Leader</span>
+            <h3>团队负责人 / 产品经理</h3>
+            <p class="text">负责项目方向判断、需求优先级定义、信息架构搭建、跨成员协作节奏与最终作品集化表达，确保项目既有产品逻辑，也有完整 UIUX 呈现。</p>
+            <figure class="role-photo">
+              <img src="小匠行/调研照片/罗丹rodin-leader.png" alt="罗丹作为项目负责人参与小匠行调研与项目推进" />
+            </figure>
+          </article>
+
+          <article class="card span-8 reveal">
+            <span class="role-label">Key Contributions</span>
+            <div class="contribution-list">
+              <div class="contribution">
+                <b>01</b>
+                <div>
+                  <h3>从 0 到 1 机会洞察</h3>
+                  <p class="text">主导全链路市场调研，通过双重用户模型（年轻父母 + 学龄儿童）定义核心产品逻辑，明确“家庭决策者”和“儿童体验者”的不同诉求。</p>
+                </div>
+              </div>
+              <div class="contribution">
+                <b>02</b>
+                <div>
+                  <h3>体验链路推导</h3>
+                  <p class="text">独立推导用户故事版（Storyboard）与全生命周期用户旅程图（User Journey Map），完成产品信息架构（IA）与功能闭环设计。</p>
+                </div>
+              </div>
+              <div class="contribution">
+                <b>03</b>
+                <div>
+                  <h3>全流程项目统筹</h3>
+                  <p class="text">协调团队推进需求定义、UI/UX 视觉风格（新中式现代人文风）落地，并统筹最终 A3 完整提案展板的输出与闭环。</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="research">
+      <div class="section__inner">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">03 / Discovery & Insights</p>
+            <h2>平衡家长的规划需求，与孩子的探索兴趣。</h2>
+            <p class="lead">针对年轻家庭“双重用户”模型进行深度调研：通过清晰的路线规划缓解家长的“遛娃焦虑”，同时用游戏化任务激发儿童的主动参与感。</p>
+          </div>
+          <div class="module-no">User<br />Assets</div>
+        </div>
+
+        <div class="bento">
+          <article class="card span-6 reveal">
+            <div class="persona">
+              <div class="persona__avatar">
+                <img src="小匠行/用户画像-家长.png" alt="年轻家长用户画像" />
+              </div>
+              <div>
+                <h3>决策者 - 年轻家长（25-35岁）</h3>
+                <p class="text"><strong>痛点：</strong>周末遛娃同质化、缺乏教育意义。<br /><strong>诉求：</strong>路线轻松、安排清晰、活动对孩子有成长价值。</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="card span-6 reveal">
+            <div class="persona">
+              <div class="persona__avatar">
+                <img src="小匠行/用户画像-儿童.png" alt="儿童用户画像" />
+              </div>
+              <div>
+                <h3>体验者 - 儿童（5-12岁）</h3>
+                <p class="text"><strong>痛点：</strong>线上娱乐过度、传统文化断层。<br /><strong>诉求：</strong>故事化情节、挑战机制、即时反馈与可收集成果。</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="card span-12 reveal">
+            <h3>故事版与用户旅程图（Storyboard & UJM）</h3>
+            <p class="text">梳理“计划出行（首页推荐降低决策成本） → 路线前往（游戏化探索地图） → 实地探索（任务打卡 / AR 交互） → 成果沉淀（图鉴收集 / 成长档案）”的全链路体验。</p>
+            <div class="journey">
+              <div class="journey-step">
+                <span>1</span>
+                <h4>计划出行</h4>
+                <p class="text">首页精选推荐任务与点位，帮助家长快速找到适合周末的文化路线。</p>
+              </div>
+              <div class="journey-step">
+                <span>2</span>
+                <h4>路线前往</h4>
+                <p class="text">地图以游戏化探索形式呈现点位状态、距离和探索进度。</p>
+              </div>
+              <div class="journey-step">
+                <span>3</span>
+                <h4>实地探索</h4>
+                <p class="text">通过任务打卡与 AR 交互，让儿童在真实场景中理解非遗故事。</p>
+              </div>
+              <div class="journey-step">
+                <span>4</span>
+                <h4>成果沉淀</h4>
+                <p class="text">图鉴收集与成长档案记录家庭足迹，形成可复访的长期价值。</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ia">
+      <div class="section__inner">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">04 / Information Architecture</p>
+            <h2>将线下出行行为，转化为清晰的功能架构。</h2>
+            <p class="lead">核心架构围绕“探索前、探索中、探索后”三段式体验展开，将家庭的物理出行链路映射为有秩序的产品模块，兼顾家长的规划效率与孩子的持续激励。</p>
+          </div>
+          <div class="module-no">IA &<br />Flow</div>
+        </div>
+
+        <div class="card span-12 reveal">
+          <h3>核心功能闭环</h3>
+          <p class="text">发现任务 → 查看点位 → 地图前往 → 实地探索 → AR 识别 → 奖励反馈 → 图鉴与成长记录。</p>
+          <div class="ia-flow" aria-label="小匠行信息架构流程">
+            <article class="ia-step">
+              <figure><img src="小匠行/界面/首页.png" alt="小匠行首页推荐界面" /></figure>
+              <div class="ia-node">
+                <b>01 / 首页推荐</b>
+                <span>把推荐任务、附近点位和入口功能集中呈现，减少周末出行前的信息筛选压力。</span>
+              </div>
+            </article>
+
+            <article class="ia-step">
+              <figure><img src="小匠行/界面/探索页.png" alt="小匠行地图探索界面" /></figure>
+              <div class="ia-node">
+                <b>02 / 地图探索</b>
+                <span>将非遗点位、任务状态与路径关系可视化，让家长理解路线，让孩子看到探索目标。</span>
+              </div>
+            </article>
+
+            <article class="ia-step">
+              <figure><img src="小匠行/界面/点位详情页.png" alt="小匠行点位详情界面" /></figure>
+              <div class="ia-node">
+                <b>03 / 点位详情</b>
+                <span>整合文化介绍、任务进度和周边内容，把一个地点转化为有故事的探索单元。</span>
+              </div>
+            </article>
+
+            <article class="ia-step">
+              <figure><img src="小匠行/界面/任务页.png" alt="小匠行任务系统界面" /></figure>
+              <div class="ia-node">
+                <b>04 / 任务系统</b>
+                <span>用打卡、挑战、进度与奖励反馈组织探索过程，让儿童从被动跟随变成主动参与。</span>
+              </div>
+            </article>
+
+            <article class="ia-step">
+              <figure><img src="小匠行/界面/ar扫描页.png" alt="小匠行 AR 扫描界面" /></figure>
+              <div class="ia-node">
+                <b>05 / AR 扫描</b>
+                <span>把线下物件、纹样和非遗知识连接起来，让文化内容从看介绍变成动手发现。</span>
+              </div>
+            </article>
+
+            <article class="ia-step">
+              <figure><img src="小匠行/界面/成长档案.png" alt="小匠行成长档案界面" /></figure>
+              <div class="ia-node">
+                <b>06 / 成长档案</b>
+                <span>沉淀足迹、徽章、图鉴和任务成果，让一次出行变成可回看的成长记录。</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="screens">
+      <div class="section__inner">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">05 / Design Solution</p>
+            <h2>界面即是逻辑，用设计传递产品价值。</h2>
+            <p class="lead">界面不仅是视觉的包装，更是产品功能的直观触达。我们将复杂的业务逻辑转化为易点击、易理解、可反馈的亲子互动界面，让每次操作都带有明确的产品目的。</p>
+          </div>
+          <div class="module-no">PM<br />Insights</div>
+        </div>
+
+        <div class="solution-grid">
+          <article class="screen-card reveal">
+            <figure><img src="小匠行/界面/启动页.png" alt="小匠行启动页" /></figure>
+            <div>
+              <h3>启动页 / 品牌第一印象</h3>
+              <p class="text">用青绿色、水墨山水与儿童探索形象建立“文化但不沉重”的第一印象，让非遗主题更亲子、更轻盈。</p>
+              <span class="pm-label">PM Insights</span>
+              <p class="text">启动页承担情绪预设：用户进入产品前先感受到“城市课堂”的温度，降低传统文化产品常见的距离感。</p>
+            </div>
+          </article>
+
+          <article class="screen-card reveal">
+            <figure><img src="小匠行/界面/首页.png" alt="小匠行首页" /></figure>
+            <div>
+              <h3>首页 / 精选推荐降低决策成本</h3>
+              <p class="text">iOS 原生大圆角卡片、青绿水墨插画与任务入口组合，快速呈现“去哪、做什么、进度如何”。</p>
+              <span class="pm-label">PM Insights</span>
+              <p class="text">通过精选推荐解决家长的周末出行规划焦虑，把抽象的非遗资源转化成可立即行动的亲子任务。</p>
+            </div>
+          </article>
+
+          <article class="screen-card reveal">
+            <figure><img src="小匠行/界面/点位详情页.png" alt="小匠行点位详情页" /></figure>
+            <div>
+              <h3>点位详情 / 把文化内容转译为行动线索</h3>
+              <p class="text">点位页整合距离、文化故事、任务要求和探索状态，帮助家庭在到达前建立预期。</p>
+              <span class="pm-label">PM Insights</span>
+              <p class="text">将“看介绍”升级为“准备探索”，让文化内容不只是阅读资料，而是后续任务和现场互动的前置动机。</p>
+            </div>
+          </article>
+
+          <article class="screen-card reveal">
+            <figure><img src="小匠行/界面/任务页.png" alt="小匠行任务页" /></figure>
+            <div>
+              <h3>任务页 / 实地互动与即时反馈</h3>
+              <p class="text">把枯燥的非遗文化翻译成“寻找匠心石刻”“体验非遗手作”等实地互动任务。</p>
+              <span class="pm-label">PM Insights</span>
+              <p class="text">通过经验值、探索徽章、匠心币等即时反馈，激发儿童主动探索的内驱力，让家长看见可量化的成长成果。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="boards">
+      <div class="section__inner">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">06 / Exhibition Boards</p>
+            <h2>全景业务沉淀，系统化呈现设计推导与交付。</h2>
+            <p class="lead">聚合项目核心交付资产，全面复盘从用户需求洞察、全链路旅程推导、视觉规范建立到产品功能闭环的完整推导过程，验证产品在真实物理场景下的系统化落地可行性。</p>
+          </div>
+          <div class="module-no">A3<br />Boards</div>
+        </div>
+
+        <div class="boards">
+          <figure class="board reveal">
+            <img src="小匠行/展板/A3-1.jpg" alt="小匠行 A3 展板 1" />
+            <figcaption>A3-1 / 项目总览与核心功能路径</figcaption>
+          </figure>
+          <figure class="board reveal">
+            <img src="小匠行/展板/A3-2.jpg" alt="小匠行 A3 展板 2" />
+            <figcaption>A3-2 / 设计说明、视觉规范与功能框架</figcaption>
+          </figure>
+          <figure class="board reveal">
+            <img src="小匠行/展板/A3-3.jpg" alt="小匠行 A3 展板 3" />
+            <figcaption>A3-3 / 用户调研、竞品分析与业务流程</figcaption>
+          </figure>
+          <figure class="board reveal">
+            <img src="小匠行/展板/A3-4.jpg" alt="小匠行 A3 展板 4" />
+            <figcaption>A3-4 / 发现任务 → 实地探索 → 奖励反馈 → 成长记录</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="business">
+      <div class="section__inner">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">07 / Business & Future Roadmap</p>
+            <h2>构建多维商业闭环，驱动产品长效增长。</h2>
+            <p class="lead">突破单次出游工具的局限，通过纵向深耕家庭成长体系、横向链接非遗商家与城市文旅资源，打造可持续运营的亲子文化生态平台。</p>
+          </div>
+          <div class="module-no">Growth<br />Model</div>
+        </div>
+
+        <div class="business-grid">
+          <article class="card reveal">
+            <span class="role-label">B2C</span>
+            <h3>家庭会员订阅</h3>
+            <p class="text">提供专属亲子路线、精选任务包、图鉴权益与家庭成长报告，形成持续付费场景。</p>
+          </article>
+          <article class="card reveal">
+            <span class="role-label">B2B</span>
+            <h3>非遗体验馆入驻</h3>
+            <p class="text">连接手作空间、体验馆和文创店，以任务路线和点位推荐提供流量导流合作。</p>
+          </article>
+          <article class="card reveal">
+            <span class="role-label">B2G</span>
+            <h3>城市文旅合作</h3>
+            <p class="text">将本地文化资源转化为研学路线，帮助城市文化以更轻量的产品方式触达家庭用户。</p>
+          </article>
+          <article class="card reveal">
+            <span class="role-label">Future</span>
+            <h3>AI 与多城市扩展</h3>
+            <p class="text">未来规划 AI 智能路线推荐、多城市点位库、家庭成长体系与非遗商家平台化能力。</p>
+          </article>
+        </div>
+
+        <div class="roadmap">
+          <article class="roadmap-item reveal">
+            <h3>AI 智能路线推荐</h3>
+            <p class="text">根据儿童年龄、出行时长、地理位置、兴趣标签和历史探索记录，生成更个性化的亲子非遗路线。</p>
+          </article>
+          <article class="roadmap-item reveal">
+            <h3>多城市文化地图</h3>
+            <p class="text">从单城样板扩展到多城市非遗点位库，让产品从作品概念走向可规模化运营的文化服务平台。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="summary">
+      <div class="section__inner">
+        <div class="final-lockup reveal">
+          <p class="eyebrow">08 / Case Study Summary</p>
+          <h2>让城市成为孩子的课堂，让文化在探索中传承。</h2>
+          <p class="lead">打造有温度的亲子研学体验，把传统非遗变成家庭触手可及的互动日常。</p>
+          <div class="tag-row">
+            <span class="tag">UX Research</span>
+            <span class="tag">Product Strategy</span>
+            <span class="tag">Information Architecture</span>
+            <span class="tag">UI Visual System</span>
+            <span class="tag is-accent">A3 Final Proposal</span>
+          </div>
+          <div class="footer">
+            <span>Product / UIUX / App</span>
+            <span>Major Work 04 / 08</span>
+            <span>GMT+8 CN / 2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const revealNodes = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
+
+    revealNodes.forEach((node) => observer.observe(node));
+  </script>
+</body>
+</html>
