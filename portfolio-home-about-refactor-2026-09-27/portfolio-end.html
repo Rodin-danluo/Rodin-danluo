@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rodin Portfolio End</title>
+    <meta name="description" content="罗丹作品集结尾页：Product, UIUX, AI practice." />
+    <style>
+      @font-face {
+        font-family: "TikTokSans";
+        src: url("./assets/fonts/TikTokSans.ttf") format("truetype");
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "DepartureMono";
+        src: url("./assets/fonts/DepartureMono-Regular.otf") format("opentype");
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "GeistMono";
+        src: url("./assets/fonts/GeistMono[wght].ttf") format("truetype");
+        font-display: swap;
+      }
+
+      :root {
+        --sky: #bfe0f1;
+        --sky-deep: #a9d2ec;
+        --paper: #fff8ed;
+        --ink: #05070a;
+        --muted: rgba(5, 7, 10, 0.58);
+        --grid: rgba(45, 87, 112, 0.16);
+        --blue: rgba(82, 139, 222, 0.58);
+        --blue-deep: rgba(36, 101, 203, 0.38);
+        --cream-glow: rgba(255, 248, 221, 0.82);
+        --glass: rgba(255, 255, 255, 0.24);
+        --glass-strong: rgba(255, 255, 255, 0.48);
+        --line: rgba(24, 69, 117, 0.18);
+        --sans: "TikTokSans", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+        --mono: "DepartureMono", "GeistMono", ui-monospace, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+        background: #070707;
+        color: var(--ink);
+        font-family: var(--sans);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .stage {
+        position: relative;
+        width: 100vw;
+        height: 100svh;
+        min-height: 680px;
+        overflow: hidden;
+        isolation: isolate;
+        background:
+          radial-gradient(ellipse at 84% 78%, var(--cream-glow) 0 12%, transparent 33%),
+          radial-gradient(ellipse at 63% 77%, rgba(255, 255, 255, 0.72) 0 7%, transparent 22%),
+          radial-gradient(ellipse at 76% 30%, rgba(235, 251, 255, 0.74) 0 12%, transparent 35%),
+          radial-gradient(ellipse at 18% 18%, rgba(255, 255, 255, 0.46) 0 10%, transparent 31%),
+          linear-gradient(112deg, var(--sky) 0%, #c7e5f4 45%, #d8eff6 100%);
+      }
+
+      .stage::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 31.25vw 28.75vh;
+        opacity: 0.72;
+      }
+
+      .stage::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+          linear-gradient(115deg, transparent 0 52%, rgba(255, 255, 255, 0.55) 57%, transparent 64%),
+          radial-gradient(circle at 67% 15%, rgba(255, 255, 255, 0.62), transparent 12%),
+          radial-gradient(circle at 43% 49%, rgba(255, 255, 255, 0.22), transparent 19%);
+        mix-blend-mode: soft-light;
+      }
+
+      .topbar,
+      .hero,
+      .capabilities,
+      .footer,
+      .decor {
+        position: relative;
+        z-index: 10;
+      }
+
+      .topbar {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: start;
+        gap: 4vw;
+        padding: clamp(26px, 3.4vw, 48px) 7.8vw 0;
+      }
+
+      .brand {
+        font-size: clamp(1.05rem, 1.2vw, 1.45rem);
+        font-weight: 900;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+      }
+
+      .nav,
+      .eyebrow,
+      .kicker,
+      .mini,
+      .footer,
+      .card span {
+        font-family: var(--mono);
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .nav {
+        display: flex;
+        justify-content: flex-end;
+        gap: clamp(18px, 2.2vw, 34px);
+        font-size: clamp(0.9rem, 1vw, 1.16rem);
+      }
+
+      .hero {
+        position: absolute;
+        left: 7.8vw;
+        right: 7.8vw;
+        top: clamp(116px, 13.8vh, 138px);
+        display: grid;
+        grid-template-columns: minmax(0, 0.58fr) minmax(340px, 0.32fr);
+        justify-content: space-between;
+        align-items: start;
+        gap: clamp(34px, 4vw, 72px);
+        padding: 0;
+      }
+
+      .hero-copy {
+        min-width: 0;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: clamp(14px, 1.6vw, 22px);
+        color: rgba(5, 7, 10, 0.7);
+        font-size: clamp(0.82rem, 0.9vw, 1.05rem);
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 58px;
+        height: 1px;
+        background: rgba(5, 7, 10, 0.46);
+      }
+
+      .thanks-visual {
+        position: relative;
+        width: clamp(600px, 45vw, 760px);
+        height: clamp(320px, 25vw, 430px);
+        max-width: 100%;
+        margin: 0;
+        transform: rotate(-2deg);
+        isolation: isolate;
+      }
+
+      .thanks-visual::before {
+        content: "";
+        position: absolute;
+        inset: 10% 6% 4% 3%;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse at 48% 48%, rgba(112, 170, 224, 0.18) 0 24%, rgba(166, 213, 238, 0.1) 39%, transparent 67%);
+        filter: blur(18px);
+        mix-blend-mode: multiply;
+        opacity: 0.7;
+      }
+
+      .thanks-visual::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background:
+          linear-gradient(105deg, transparent 0 28%, rgba(255, 255, 255, 0.48) 33%, transparent 39%),
+          radial-gradient(circle at 24% 29%, rgba(255, 255, 255, 0.72) 0 1.2%, transparent 2.8%),
+          radial-gradient(circle at 54% 25%, rgba(255, 255, 255, 0.58) 0 1%, transparent 2.6%),
+          radial-gradient(circle at 62% 77%, rgba(255, 255, 255, 0.52) 0 1%, transparent 2.6%);
+        mix-blend-mode: screen;
+        opacity: 0.58;
+        -webkit-mask-image: url("./assets/thanks-cutout-alpha.png");
+        mask-image: url("./assets/thanks-cutout-alpha.png");
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+      }
+
+      .thanks-art {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        opacity: 1;
+        mix-blend-mode: multiply;
+        filter:
+          saturate(1.22)
+          contrast(1.16)
+          brightness(1.04)
+          drop-shadow(0 16px 18px rgba(47, 100, 180, 0.12))
+          drop-shadow(0 2px 0 rgba(255, 255, 255, 0.2));
+        user-select: none;
+      }
+
+      .closing-copy {
+        max-width: 760px;
+        margin: clamp(14px, 1.35vw, 22px) 0 0;
+      }
+
+      .closing-copy h2 {
+        margin: 0;
+        font-size: clamp(2.05rem, 2.8vw, 3.2rem);
+        font-weight: 900;
+        line-height: 1.04;
+        letter-spacing: -0.045em;
+      }
+
+      .closing-copy h2 span {
+        display: block;
+        margin-top: 4px;
+        font-family: var(--mono);
+        color: rgba(5, 7, 10, 0.62);
+        font-size: clamp(0.92rem, 1vw, 1.16rem);
+        font-weight: 400;
+        letter-spacing: 0;
+        text-transform: none;
+      }
+
+      .kicker {
+        margin: clamp(10px, 1.2vw, 16px) 0 0;
+        color: rgba(5, 7, 10, 0.72);
+        font-size: clamp(0.95rem, 1.03vw, 1.2rem);
+        line-height: 1.45;
+      }
+
+      .profile-card {
+        position: relative;
+        z-index: 1;
+        align-self: start;
+        overflow: hidden;
+        margin-top: clamp(12px, 1.6vw, 26px);
+        min-height: clamp(260px, 30vh, 306px);
+        padding: clamp(20px, 2vw, 30px);
+        border: 1px solid rgba(255, 255, 255, 0.56);
+        border-right-color: rgba(42, 101, 170, 0.16);
+        border-bottom-color: rgba(42, 101, 170, 0.16);
+        border-radius: 8px;
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, 0.54), rgba(255, 255, 255, 0.2)),
+          radial-gradient(circle at 18% 8%, rgba(255, 255, 255, 0.84), transparent 32%);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.84),
+          0 24px 38px rgba(45, 97, 157, 0.13);
+        backdrop-filter: blur(18px);
+      }
+
+      .profile-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 78% 18%, rgba(82, 139, 222, 0.2), transparent 31%),
+          linear-gradient(145deg, rgba(255, 255, 255, 0.62), rgba(235, 251, 255, 0.16));
+      }
+
+      .profile-card h2 {
+        position: relative;
+        z-index: 2;
+        margin: 0 0 clamp(14px, 1.3vw, 20px);
+        max-width: 100%;
+        font-size: clamp(2.1rem, 3vw, 3.85rem);
+        line-height: 0.98;
+        font-weight: 900;
+        letter-spacing: -0.055em;
+        text-transform: uppercase;
+      }
+
+      .profile-card p {
+        position: relative;
+        z-index: 2;
+        max-width: 92%;
+        margin: 0;
+        color: rgba(5, 7, 10, 0.72);
+        font-size: clamp(0.92rem, 0.98vw, 1.12rem);
+        line-height: 1.5;
+      }
+
+      .profile-focus {
+        position: relative;
+        z-index: 2;
+        display: block;
+        max-width: 92%;
+        margin: 0 0 clamp(10px, 1vw, 14px);
+        color: var(--ink);
+        font-size: clamp(1.08rem, 1.18vw, 1.38rem);
+        line-height: 1.2;
+        font-weight: 900;
+      }
+
+      .profile-card .mini {
+        position: relative;
+        z-index: 2;
+        display: block;
+        max-width: 92%;
+        margin-top: clamp(14px, 1.35vw, 20px);
+        color: rgba(5, 7, 10, 0.58);
+        font-size: clamp(0.76rem, 0.82vw, 0.96rem);
+        line-height: 1.5;
+      }
+
+      .capabilities {
+        position: absolute;
+        left: 7.8vw;
+        right: 7.8vw;
+        bottom: clamp(86px, 9.8vh, 98px);
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(16px, 1.5vw, 24px);
+      }
+
+      .card {
+        min-height: clamp(82px, 8.8vh, 96px);
+        padding: clamp(12px, 1.05vw, 16px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.22);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.66);
+        backdrop-filter: blur(14px);
+      }
+
+      .card span {
+        display: block;
+        color: rgba(5, 7, 10, 0.54);
+        font-size: clamp(0.72rem, 0.78vw, 0.92rem);
+      }
+
+      .card h3 {
+        margin: 6px 0 8px;
+        font-size: clamp(1.2rem, 1.42vw, 1.82rem);
+        line-height: 0.95;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+      }
+
+      .card p {
+        margin: 0;
+        color: rgba(5, 7, 10, 0.66);
+        font-family: var(--mono);
+        font-size: clamp(0.78rem, 0.82vw, 0.94rem);
+        line-height: 1.35;
+        text-transform: uppercase;
+      }
+
+      .footer {
+        position: absolute;
+        left: 7.8vw;
+        right: 7.8vw;
+        bottom: clamp(36px, 4.2vh, 44px);
+        display: grid;
+        grid-template-columns: 1fr 1fr 1.35fr;
+        align-items: end;
+        gap: 24px;
+        color: rgba(5, 7, 10, 0.76);
+        font-size: clamp(0.76rem, 0.86vw, 1rem);
+      }
+
+      .footer span:nth-child(2) {
+        text-align: center;
+      }
+
+      .footer span:nth-child(3) {
+        text-align: right;
+      }
+
+      .cross,
+      .shine,
+      .orbit,
+      .cursor,
+      .globe,
+      .sticker {
+        position: absolute;
+        pointer-events: none;
+      }
+
+      .cross {
+        z-index: 2;
+        width: 22px;
+        height: 22px;
+        color: rgba(53, 75, 89, 0.42);
+      }
+
+      .cross::before,
+      .cross::after {
+        content: "";
+        position: absolute;
+        background: currentColor;
+      }
+
+      .cross::before {
+        left: 10px;
+        top: 2px;
+        width: 1px;
+        height: 18px;
+      }
+
+      .cross::after {
+        left: 2px;
+        top: 10px;
+        width: 18px;
+        height: 1px;
+      }
+
+      .cross.a { left: 7vw; top: 43vh; }
+      .cross.b { left: 37vw; top: 43vh; }
+      .cross.c { left: 66.5vw; top: 43vh; }
+      .cross.d { right: 7.1vw; top: 43vh; }
+      .cross.e { left: 7vw; top: 71.5vh; }
+      .cross.f { left: 66.5vw; top: 71.5vh; }
+      .cross.g { right: 7.1vw; top: 71.5vh; }
+
+      .shine {
+        z-index: 8;
+        width: 10vw;
+        min-width: 84px;
+        aspect-ratio: 1;
+        border-radius: 999px;
+        background:
+          radial-gradient(circle, rgba(255, 255, 255, 0.96) 0 2%, transparent 3%),
+          conic-gradient(from 20deg, transparent, rgba(255, 255, 255, 0.96), transparent 16%, transparent 42%, rgba(255, 255, 255, 0.65), transparent 58%, transparent);
+        mix-blend-mode: screen;
+        filter: blur(0.2px);
+        opacity: 0.62;
+      }
+
+      .shine.one { left: 30vw; top: 13vh; transform: rotate(18deg) scale(0.72); }
+      .shine.two { left: 54vw; top: 24vh; transform: rotate(-12deg) scale(0.82); }
+      .shine.three { left: 70vw; top: 35vh; transform: rotate(14deg) scale(0.6); }
+      .shine.four { left: 18vw; top: 56vh; transform: rotate(-10deg) scale(0.5); opacity: 0.46; }
+
+      .orbit {
+        z-index: 3;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-left-color: rgba(43, 102, 176, 0.2);
+        border-radius: 50%;
+        transform: rotate(-18deg);
+      }
+
+      .orbit.one {
+        left: 24vw;
+        top: 43vh;
+        width: 16vw;
+        min-width: 180px;
+        aspect-ratio: 1.38;
+      }
+
+      .orbit.two {
+        left: 46vw;
+        top: 37vh;
+        width: 23vw;
+        min-width: 260px;
+        aspect-ratio: 2.2;
+      }
+
+      .sticker {
+        z-index: 9;
+        width: clamp(64px, 5.5vw, 104px);
+        user-select: none;
+        filter: drop-shadow(0 12px 16px rgba(32, 55, 76, 0.16));
+      }
+
+      .sticker.star { left: 57vw; top: 24vh; transform: rotate(-8deg); opacity: 0.36; }
+      .sticker.face { right: 25vw; top: 16vh; transform: rotate(10deg); }
+      .sticker.hand {
+        left: 32vw;
+        bottom: 8vh;
+        z-index: 11;
+        transform: rotate(-16deg) scale(0.9);
+        opacity: 0.9;
+      }
+      .sticker.green { display: none; }
+
+      .cursor {
+        z-index: 60;
+        right: 8.8vw;
+        top: 53vh;
+        width: clamp(48px, 4.5vw, 82px);
+        aspect-ratio: 0.92;
+        transform: rotate(-34deg);
+        filter: drop-shadow(0 18px 18px rgba(31, 94, 158, 0.24));
+      }
+
+      .cursor::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(145deg, #2d93e6, #3879c8);
+        border-radius: 18px;
+        clip-path: polygon(14% 0, 94% 74%, 59% 79%, 43% 100%);
+      }
+
+      .cursor::after {
+        content: "";
+        position: absolute;
+        inset: 9%;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.18);
+        border-radius: 14px;
+        clip-path: polygon(14% 0, 94% 74%, 59% 79%, 43% 100%);
+      }
+
+      .globe {
+        display: none;
+        z-index: 10;
+        right: 7.8vw;
+        bottom: clamp(36px, 4.2vh, 44px);
+        width: clamp(42px, 3.6vw, 64px);
+        height: clamp(22px, 1.8vw, 34px);
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+      }
+
+      .globe::before,
+      .globe::after {
+        content: "";
+        position: absolute;
+        inset: 3px 42%;
+        border-right: 1.5px solid var(--ink);
+        border-left: 1.5px solid var(--ink);
+        border-radius: 50%;
+      }
+
+      .globe::after {
+        inset: 45% 4px;
+        border: 0;
+        border-top: 1.5px solid var(--ink);
+        border-bottom: 1.5px solid var(--ink);
+      }
+
+      @media (max-aspect-ratio: 14 / 9) {
+        .hero {
+          padding-top: 28px;
+        }
+
+        .thanks-visual {
+          width: clamp(500px, 40vw, 780px);
+          max-width: 100%;
+        }
+
+        .profile-card {
+          padding: clamp(18px, 2vw, 28px);
+        }
+      }
+
+      @media (max-width: 880px) {
+        .stage {
+          height: auto;
+          min-height: 100svh;
+          overflow: hidden;
+        }
+
+        .topbar {
+          grid-template-columns: 1fr;
+          gap: 16px;
+          padding: 30px 26px 0;
+        }
+
+        .nav {
+          justify-content: flex-start;
+          flex-wrap: wrap;
+        }
+
+        .hero {
+          position: relative;
+          left: auto;
+          right: auto;
+          top: auto;
+          grid-template-columns: 1fr;
+          gap: 20px;
+          padding: 34px 26px 0;
+        }
+
+        .thanks-visual {
+          width: calc(100vw - 132px);
+          height: clamp(230px, 58vw, 300px);
+          max-width: 100%;
+          margin-left: 36px;
+        }
+
+        .closing-copy h2 {
+          max-width: 100%;
+          font-size: clamp(1.72rem, 7.4vw, 2.2rem);
+          letter-spacing: -0.04em;
+        }
+
+        .profile-card {
+          margin-top: 0;
+        }
+
+        .profile-card h2,
+        .profile-card p,
+        .profile-card .mini {
+          max-width: 76%;
+        }
+
+        .capabilities {
+          position: relative;
+          left: auto;
+          right: auto;
+          bottom: auto;
+          grid-template-columns: 1fr;
+          padding: 18px 26px 0;
+        }
+
+        .pills {
+          position: relative;
+          left: auto;
+          right: auto;
+          bottom: auto;
+          padding: 18px 26px 110px;
+        }
+
+        .footer {
+          left: 26px;
+          right: 26px;
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .footer span,
+        .footer span:nth-child(2),
+        .footer span:nth-child(3) {
+          text-align: left;
+        }
+
+        .sticker.star,
+        .sticker.face,
+        .sticker.green {
+          display: none;
+        }
+
+        .sticker.hand {
+          opacity: 0.3;
+        }
+
+        .cursor {
+          right: 9vw;
+          top: 54vh;
+          opacity: 0.72;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage" aria-label="罗丹作品集结尾页">
+      <i class="cross a" aria-hidden="true"></i>
+      <i class="cross b" aria-hidden="true"></i>
+      <i class="cross c" aria-hidden="true"></i>
+      <i class="cross d" aria-hidden="true"></i>
+      <i class="cross e" aria-hidden="true"></i>
+      <i class="cross f" aria-hidden="true"></i>
+      <i class="cross g" aria-hidden="true"></i>
+
+      <header class="topbar">
+        <a class="brand" href="./index.html">RODIN.DESIGN</a>
+        <nav class="nav" aria-label="结尾页导航">
+          <a href="./index.html">Work</a>
+          <a href="mailto:rodin260599@qq.com">Contact</a>
+          <a href="./project-wheel.html">Wheel</a>
+          <a href="./interests.html">Lab</a>
+          <a href="./assets/docs/rodin-portfolio.pdf" download>PDF</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">Final Frame / Product × UIUX × AI</div>
+          <div class="thanks-visual" aria-label="Thank you">
+            <img class="thanks-art" src="./assets/thanks-cutout-alpha.png" alt="" />
+          </div>
+          <div class="closing-copy">
+            <h2>感谢观看我的作品集<span>Thanks for viewing my portfolio.</span></h2>
+            <p class="kicker">Designing with empathy. Building with clear impact.</p>
+          </div>
+        </div>
+
+        <aside class="profile-card" aria-label="个人定位">
+          <h2>RODIN<br />罗丹</h2>
+          <strong class="profile-focus">产品 × UIUX × AI 实践者</strong>
+          <p>
+            工业设计背景，关注用户体验、产品落地与 AI 辅助构建。具备产品设计、用户研究、App 发布、工具型产品与项目交付经验。
+          </p>
+          <span class="mini">PRODUCT DESIGN / USER RESEARCH / PRODUCT DELIVERY<br />APP STORE / SEO / AI-ASSISTED BUILDING</span>
+        </aside>
+      </section>
+
+      <section class="capabilities" aria-label="能力方向">
+        <article class="card">
+          <span>01</span>
+          <h3>产品设计</h3>
+          <p>APP / WEB / FLOW / PROTOTYPE / AI</p>
+        </article>
+        <article class="card">
+          <span>02</span>
+          <h3>用户研究</h3>
+          <p>SCENARIO / NEEDS / PRIORITY / PAIN POINT</p>
+        </article>
+        <article class="card">
+          <span>03</span>
+          <h3>产品落地</h3>
+          <p>APP STORE / SEO / LAUNCH / ITERATION</p>
+        </article>
+      </section>
+
+      <i class="shine one" aria-hidden="true"></i>
+      <i class="shine two" aria-hidden="true"></i>
+      <i class="shine three" aria-hidden="true"></i>
+      <i class="shine four" aria-hidden="true"></i>
+      <i class="orbit one" aria-hidden="true"></i>
+      <i class="orbit two" aria-hidden="true"></i>
+      <img class="sticker star" src="./assets/stickers/s_10.png" alt="" />
+      <img class="sticker face" src="./assets/stickers/s_12.png" alt="" />
+      <img class="sticker hand" src="./assets/stickers/s_08.png" alt="" />
+      <i class="cursor" aria-hidden="true"></i>
+
+      <footer class="footer">
+        <span>GMT+8 CN · 2026</span>
+        <span>PRODUCT / UIUX / AI · MAJOR RANK 2/68</span>
+        <span>CONTACT: RODIN260599@qq.com · WECHAT · PORTFOLIO</span>
+      </footer>
+      <i class="globe" aria-hidden="true"></i>
+    </main>
+  </body>
+</html>

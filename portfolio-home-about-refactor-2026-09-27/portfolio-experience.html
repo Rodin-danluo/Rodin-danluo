@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rodin Projects & Experience</title>
+    <meta name="description" content="罗丹作品集经历总结页：projects, delivery, experience." />
+    <style>
+      @font-face {
+        font-family: "TikTokSans";
+        src: url("./assets/fonts/TikTokSans.ttf") format("truetype");
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "DepartureMono";
+        src: url("./assets/fonts/DepartureMono-Regular.otf") format("opentype");
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "GeistMono";
+        src: url("./assets/fonts/GeistMono[wght].ttf") format("truetype");
+        font-display: swap;
+      }
+
+      :root {
+        --sky: #bfe0f1;
+        --paper: #fff8ed;
+        --ink: #05070a;
+        --muted: rgba(5, 7, 10, 0.62);
+        --grid: rgba(45, 87, 112, 0.16);
+        --blue: rgba(82, 139, 222, 0.58);
+        --blue-deep: rgba(36, 101, 203, 0.38);
+        --cream-glow: rgba(255, 248, 221, 0.82);
+        --glass: rgba(255, 255, 255, 0.28);
+        --line: rgba(24, 69, 117, 0.18);
+        --sans: "TikTokSans", system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+        --mono: "DepartureMono", "GeistMono", ui-monospace, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+        background: #070707;
+        color: var(--ink);
+        font-family: var(--sans);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .stage {
+        position: relative;
+        width: 100vw;
+        height: 100svh;
+        min-height: 680px;
+        overflow: hidden;
+        isolation: isolate;
+        background:
+          radial-gradient(ellipse at 90% 82%, var(--cream-glow) 0 12%, transparent 34%),
+          radial-gradient(ellipse at 70% 75%, rgba(255, 255, 255, 0.74) 0 7%, transparent 21%),
+          radial-gradient(ellipse at 76% 30%, rgba(235, 251, 255, 0.72) 0 12%, transparent 34%),
+          radial-gradient(ellipse at 14% 18%, rgba(255, 255, 255, 0.46) 0 9%, transparent 30%),
+          linear-gradient(112deg, var(--sky) 0%, #c7e5f4 45%, #d8eff6 100%);
+      }
+
+      .stage::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 31.25vw 28.75vh;
+        opacity: 0.72;
+      }
+
+      .stage::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+          linear-gradient(115deg, transparent 0 54%, rgba(255, 255, 255, 0.54) 59%, transparent 66%),
+          radial-gradient(circle at 65% 15%, rgba(255, 255, 255, 0.6), transparent 12%),
+          radial-gradient(circle at 42% 50%, rgba(255, 255, 255, 0.2), transparent 20%);
+        mix-blend-mode: soft-light;
+      }
+
+      .topbar,
+      .content,
+      .footer,
+      .decor {
+        position: relative;
+        z-index: 10;
+      }
+
+      .topbar {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: start;
+        padding: clamp(26px, 3.3vw, 48px) 7.8vw 0;
+      }
+
+      .brand {
+        font-size: clamp(1.05rem, 1.2vw, 1.45rem);
+        font-weight: 900;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+      }
+
+      .nav,
+      .eyebrow,
+      .meta,
+      .tag,
+      .chip,
+      .title-en,
+      .section-en,
+      .metric span,
+      .number,
+      .timeline small,
+      .footer {
+        font-family: var(--mono);
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .nav {
+        display: flex;
+        justify-content: flex-end;
+        gap: clamp(18px, 2.2vw, 34px);
+        font-size: clamp(0.82rem, 0.92vw, 1.08rem);
+      }
+
+      .ghost-title {
+        position: absolute;
+        left: 6.8vw;
+        top: 10.5vh;
+        z-index: 3;
+        max-width: 88vw;
+        color: rgba(255, 255, 255, 0.18);
+        font-size: clamp(5.8rem, 11vw, 12.5rem);
+        font-weight: 900;
+        line-height: 0.78;
+        letter-spacing: -0.06em;
+        text-transform: uppercase;
+        transform: rotate(-2deg);
+        -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.62);
+        text-shadow:
+          -8px 10px 0 rgba(74, 142, 221, 0.12),
+          10px -8px 18px rgba(255, 255, 255, 0.52),
+          0 24px 34px rgba(47, 100, 180, 0.16);
+        pointer-events: none;
+      }
+
+      .content {
+        position: absolute;
+        left: 7.8vw;
+        right: 7.8vw;
+        top: clamp(106px, 13.4vh, 124px);
+        bottom: clamp(72px, 8.4vh, 86px);
+        display: grid;
+        grid-template-columns: 0.84fr 1.24fr 0.94fr;
+        gap: clamp(16px, 1.6vw, 28px);
+        padding: 0;
+      }
+
+      .panel {
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.56);
+        border-right-color: rgba(42, 101, 170, 0.16);
+        border-bottom-color: rgba(42, 101, 170, 0.16);
+        border-radius: 8px;
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, 0.52), rgba(255, 255, 255, 0.2)),
+          radial-gradient(circle at 18% 8%, rgba(255, 255, 255, 0.8), transparent 32%);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.8),
+          0 24px 38px rgba(45, 97, 157, 0.12);
+        backdrop-filter: blur(18px);
+      }
+
+      .panel-inner {
+        height: 100%;
+        padding: clamp(16px, 1.32vw, 23px);
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        color: rgba(5, 7, 10, 0.66);
+        font-size: clamp(0.7rem, 0.78vw, 0.9rem);
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 34px;
+        height: 1px;
+        background: rgba(5, 7, 10, 0.46);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 760px;
+        font-size: clamp(1.9rem, 2.45vw, 3.25rem);
+        font-weight: 900;
+        line-height: 1.02;
+        letter-spacing: -0.035em;
+      }
+
+      .title-en {
+        display: block;
+        margin-top: 7px;
+        color: rgba(5, 7, 10, 0.58);
+        font-size: clamp(0.78rem, 0.9vw, 1.06rem);
+        font-weight: 400;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .lead {
+        margin-top: 14px;
+        color: rgba(5, 7, 10, 0.7);
+        font-size: clamp(0.94rem, 1vw, 1.16rem);
+        line-height: 1.48;
+      }
+
+      .lead strong {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--ink);
+        font-size: clamp(1.08rem, 1.16vw, 1.35rem);
+        line-height: 1.2;
+        font-weight: 900;
+      }
+
+      .section-title {
+        margin: 0 0 12px;
+        font-size: clamp(1.42rem, 1.85vw, 2.45rem);
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.04em;
+      }
+
+      .section-en {
+        display: block;
+        margin-top: 5px;
+        color: rgba(5, 7, 10, 0.56);
+        font-size: clamp(0.72rem, 0.82vw, 0.96rem);
+        font-weight: 400;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .learn-grid {
+        display: grid;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .learn-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.22);
+      }
+
+      .number {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(5, 7, 10, 0.9);
+        color: #fff;
+        font-size: 0.78rem;
+      }
+
+      .learn-item h3,
+      .project h3,
+      .timeline h3 {
+        font-size: clamp(0.98rem, 1.05vw, 1.24rem);
+        line-height: 1.18;
+        font-weight: 900;
+        letter-spacing: -0.01em;
+      }
+
+      .learn-item p,
+      .project p,
+      .timeline p {
+        margin-top: 7px;
+        color: rgba(5, 7, 10, 0.66);
+        font-size: clamp(0.8125rem, 0.84vw, 0.96rem);
+        line-height: 1.48;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 16px;
+      }
+
+      .tag,
+      .chip {
+        border: 1px solid rgba(5, 7, 10, 0.15);
+        border-radius: 999px;
+        color: rgba(5, 7, 10, 0.66);
+        background: rgba(255, 255, 255, 0.24);
+        backdrop-filter: blur(10px);
+      }
+
+      .tag {
+        padding: 7px 8px 6px;
+        font-size: clamp(0.58rem, 0.64vw, 0.74rem);
+        line-height: 1;
+      }
+
+      .metric-row {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 7px;
+        margin: 12px 0 12px;
+      }
+
+      .metric {
+        min-height: 76px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.24);
+      }
+
+      .metric strong {
+        display: block;
+        font-size: clamp(0.98rem, 1.18vw, 1.42rem);
+        line-height: 1.08;
+        font-weight: 900;
+        letter-spacing: -0.025em;
+      }
+
+      .metric span {
+        display: block;
+        margin-top: 7px;
+        color: rgba(5, 7, 10, 0.6);
+        font-size: clamp(0.72rem, 0.76vw, 0.88rem);
+        line-height: 1.34;
+      }
+
+      .project-grid {
+        display: grid;
+        gap: 10px;
+      }
+
+      .project {
+        display: grid;
+        grid-template-columns: clamp(76px, 6vw, 102px) 1fr;
+        gap: 12px;
+        min-height: 125px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      .thumb {
+        position: relative;
+        overflow: hidden;
+        align-self: stretch;
+        min-height: 100px;
+        border-radius: 7px;
+        background: rgba(255, 255, 255, 0.32);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      }
+
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      .project-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .chip {
+        flex: none;
+        padding: 7px 9px 6px;
+        font-size: clamp(0.62rem, 0.66vw, 0.78rem);
+        line-height: 1.05;
+      }
+
+      .delivery-strip {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 7px;
+        margin-bottom: 10px;
+      }
+
+      .delivery-strip .chip {
+        display: grid;
+        place-items: center;
+        min-height: 34px;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .timeline {
+        position: relative;
+        display: grid;
+        gap: 10px;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 4px;
+        bottom: 4px;
+        width: 2px;
+        background: linear-gradient(rgba(43, 102, 176, 0.34), rgba(5, 7, 10, 0.1));
+      }
+
+      .event {
+        position: relative;
+        display: grid;
+        grid-template-columns: 30px 1fr;
+        gap: 11px;
+      }
+
+      .dot {
+        position: relative;
+        z-index: 1;
+        width: 30px;
+        height: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.92), rgba(77, 139, 211, 0.38) 42%, rgba(45, 105, 183, 0.2));
+        box-shadow: 0 10px 18px rgba(43, 102, 176, 0.16);
+      }
+
+      .event-card {
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.22);
+      }
+
+      .timeline small {
+        display: block;
+        margin-bottom: 5px;
+        color: rgba(5, 7, 10, 0.58);
+        font-size: clamp(0.68rem, 0.72vw, 0.84rem);
+      }
+
+      .role-line {
+        display: block;
+      }
+
+      .role-line b {
+        display: block;
+        margin-top: 4px;
+        color: rgba(5, 7, 10, 0.58);
+        font-family: var(--mono);
+        font-size: clamp(0.68rem, 0.72vw, 0.84rem);
+        font-weight: 400;
+        line-height: 1.15;
+        text-transform: uppercase;
+      }
+
+      .meta {
+        color: rgba(5, 7, 10, 0.58);
+        font-size: clamp(0.54rem, 0.6vw, 0.7rem);
+      }
+
+      .footer {
+        position: absolute;
+        left: 7.8vw;
+        right: 7.8vw;
+        bottom: 4.2vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+        color: rgba(5, 7, 10, 0.76);
+        font-size: clamp(0.76rem, 0.88vw, 1.02rem);
+      }
+
+      .footer span:nth-child(2) {
+        text-align: center;
+      }
+
+      .footer span:nth-child(3) {
+        text-align: right;
+      }
+
+      .cross,
+      .shine,
+      .orbit,
+      .cursor,
+      .sticker {
+        position: absolute;
+        pointer-events: none;
+      }
+
+      .cross {
+        z-index: 2;
+        width: 22px;
+        height: 22px;
+        color: rgba(53, 75, 89, 0.42);
+      }
+
+      .cross::before,
+      .cross::after {
+        content: "";
+        position: absolute;
+        background: currentColor;
+      }
+
+      .cross::before {
+        left: 10px;
+        top: 2px;
+        width: 1px;
+        height: 18px;
+      }
+
+      .cross::after {
+        left: 2px;
+        top: 10px;
+        width: 18px;
+        height: 1px;
+      }
+
+      .cross.a { left: 7vw; top: 43vh; }
+      .cross.b { left: 37vw; top: 43vh; }
+      .cross.c { left: 66.5vw; top: 43vh; }
+      .cross.d { right: 7.1vw; top: 43vh; }
+      .cross.e { left: 7vw; top: 71.5vh; }
+      .cross.f { left: 66.5vw; top: 71.5vh; }
+      .cross.g { right: 7.1vw; top: 71.5vh; }
+
+      .shine {
+        z-index: 8;
+        width: 9vw;
+        min-width: 78px;
+        aspect-ratio: 1;
+        border-radius: 999px;
+        background:
+          radial-gradient(circle, rgba(255, 255, 255, 0.94) 0 2%, transparent 3%),
+          conic-gradient(from 20deg, transparent, rgba(255, 255, 255, 0.96), transparent 16%, transparent 42%, rgba(255, 255, 255, 0.65), transparent 58%, transparent);
+        mix-blend-mode: screen;
+        filter: blur(0.2px);
+        opacity: 0.56;
+      }
+
+      .shine.one { left: 29vw; top: 15vh; transform: rotate(18deg) scale(0.68); }
+      .shine.two { left: 58vw; top: 20vh; transform: rotate(-12deg) scale(0.78); }
+      .shine.three { left: 71vw; top: 36vh; transform: rotate(14deg) scale(0.58); }
+
+      .orbit {
+        z-index: 3;
+        border: 2px solid rgba(255, 255, 255, 0.46);
+        border-left-color: rgba(43, 102, 176, 0.2);
+        border-radius: 50%;
+        transform: rotate(-18deg);
+      }
+
+      .orbit.one {
+        left: 31vw;
+        top: 43vh;
+        width: 13vw;
+        min-width: 150px;
+        aspect-ratio: 1.38;
+      }
+
+      .orbit.two {
+        left: 52vw;
+        top: 38vh;
+        width: 22vw;
+        min-width: 240px;
+        aspect-ratio: 2.2;
+      }
+
+      .sticker {
+        z-index: 9;
+        width: clamp(58px, 5vw, 92px);
+        user-select: none;
+        filter: drop-shadow(0 12px 16px rgba(32, 55, 76, 0.16));
+      }
+
+      .sticker.star { left: 31vw; top: 20vh; transform: rotate(-8deg); }
+      .sticker.face { right: 26vw; top: 18vh; transform: rotate(10deg); }
+      .sticker.hand { left: 57vw; bottom: 2.8vh; transform: rotate(-16deg); }
+
+      .cursor {
+        z-index: 9;
+        right: 9vw;
+        bottom: 11vh;
+        width: clamp(58px, 5.2vw, 96px);
+        aspect-ratio: 0.92;
+        transform: rotate(-34deg);
+        filter: drop-shadow(0 18px 18px rgba(31, 94, 158, 0.24));
+      }
+
+      .cursor::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(145deg, #2d93e6, #3879c8);
+        border-radius: 18px;
+        clip-path: polygon(14% 0, 94% 74%, 59% 79%, 43% 100%);
+      }
+
+      .cursor::after {
+        content: "";
+        position: absolute;
+        inset: 9%;
+        background: rgba(255, 255, 255, 0.18);
+        border-radius: 14px;
+        clip-path: polygon(14% 0, 94% 74%, 59% 79%, 43% 100%);
+      }
+
+      @media (max-aspect-ratio: 14 / 9) {
+        .panel-inner {
+          padding: 18px;
+        }
+
+        .lead,
+        .learn-item p,
+        .project p,
+        .timeline p {
+          line-height: 1.45;
+        }
+
+        .metric-row {
+          margin-top: 14px;
+        }
+      }
+
+      @media (max-width: 980px) {
+        .stage {
+          height: auto;
+          min-height: 100svh;
+          overflow: hidden;
+        }
+
+        .topbar {
+          grid-template-columns: 1fr;
+          gap: 16px;
+          padding: 30px 26px 0;
+        }
+
+        .nav {
+          justify-content: flex-start;
+          flex-wrap: wrap;
+        }
+
+        .ghost-title {
+          top: 11vh;
+          left: 22px;
+          font-size: clamp(4.2rem, 18vw, 8rem);
+        }
+
+        .content {
+          position: relative;
+          left: auto;
+          right: auto;
+          top: auto;
+          bottom: auto;
+          grid-template-columns: 1fr;
+          padding: 34px 26px 110px;
+        }
+
+        .metric-row,
+        .delivery-strip {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .footer {
+          left: 26px;
+          right: 26px;
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .footer span,
+        .footer span:nth-child(2),
+        .footer span:nth-child(3) {
+          text-align: left;
+        }
+
+        .sticker.star,
+        .sticker.face {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage" aria-label="作品集经历总结页">
+      <i class="cross a" aria-hidden="true"></i>
+      <i class="cross b" aria-hidden="true"></i>
+      <i class="cross c" aria-hidden="true"></i>
+      <i class="cross d" aria-hidden="true"></i>
+      <i class="cross e" aria-hidden="true"></i>
+      <i class="cross f" aria-hidden="true"></i>
+      <i class="cross g" aria-hidden="true"></i>
+      <div class="ghost-title" aria-hidden="true">PROJECTS<br />EXPERIENCE</div>
+
+      <header class="topbar">
+        <a class="brand" href="./index.html">RODIN.DESIGN</a>
+        <nav class="nav" aria-label="页面导航">
+          <a href="./index.html">Work</a>
+          <a href="./portfolio-end.html">End</a>
+          <a href="mailto:rodin260599@qq.com">Contact</a>
+          <a href="./project-wheel.html">Wheel</a>
+          <a href="./interests.html">Lab</a>
+          <a href="./assets/docs/rodin-portfolio.pdf" download>PDF</a>
+        </nav>
+      </header>
+
+      <section class="content">
+        <aside class="panel">
+          <div class="panel-inner">
+            <div class="eyebrow">Position / Learning Direction</div>
+            <h1>项目与实践经历<span class="title-en">Projects & Experience</span></h1>
+            <p class="lead">
+              <strong>产品 × UIUX × AI 实践者</strong>
+              工业设计背景，关注用户体验、产品落地与 AI 辅助构建。
+            </p>
+
+            <div class="learn-grid">
+              <article class="learn-item">
+                <span class="number">01</span>
+                <div>
+                  <h3>交互产品设计</h3>
+                  <p>APP / WEB 原型、用户流程、信息架构、交互设计、视觉表达</p>
+                </div>
+              </article>
+              <article class="learn-item">
+                <span class="number">02</span>
+                <div>
+                  <h3>用户研究与需求分析</h3>
+                  <p>用户场景拆解、产品分析、功能优先级、TOC / TOB 需求梳理</p>
+                </div>
+              </article>
+              <article class="learn-item">
+                <span class="number">03</span>
+                <div>
+                  <h3>系统思维与产品落地</h3>
+                  <p>复杂流程拆解、信息可视化、产品发布、数据观察与迭代优化</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="tags" aria-label="能力标签">
+              <span class="tag">PRODUCT</span>
+              <span class="tag">UIUX</span>
+              <span class="tag">AI PRACTICE</span>
+              <span class="tag">INDUSTRIAL DESIGN</span>
+              <span class="tag">USER RESEARCH</span>
+              <span class="tag">MAJOR RANK 2/68</span>
+            </div>
+          </div>
+        </aside>
+
+        <section class="panel">
+          <div class="panel-inner">
+            <div class="eyebrow">Product Delivery / Project Matrix</div>
+            <h2 class="section-title">产品落地能力<span class="section-en">Product Delivery</span></h2>
+
+            <div class="delivery-strip" aria-label="产品落地能力标签">
+              <span class="chip">小米 MIMO 入选开发者</span>
+              <span class="chip">App Store 发布经验</span>
+              <span class="chip">AI 辅助构建</span>
+              <span class="chip">SEO / 数据观察</span>
+            </div>
+
+            <div class="metric-row">
+              <div class="metric">
+                <strong>01 小米 MIMO</strong>
+                <span>入选开发者计划</span>
+              </div>
+              <div class="metric">
+                <strong>3+ 上架流程</strong>
+                <span>iOS 工具类应用发布经验</span>
+              </div>
+              <div class="metric">
+                <strong>SEO 数据</strong>
+                <span>UV / PV / 关键词路径观察</span>
+              </div>
+              <div class="metric">
+                <strong>AI 协作</strong>
+                <span>原型生成 / 功能验证 / 内容运营支持</span>
+              </div>
+            </div>
+
+            <div class="project-grid" aria-label="重点项目">
+              <article class="project">
+                <div class="thumb">
+                  <img src="./assets/project-xml-tools.png" alt="XML 发票工具站项目图" />
+                </div>
+                <div>
+                  <div class="project-head">
+                    <h3>XML 发票工具站 / XML 查看器</h3>
+                    <span class="chip">TOOL / SEO / XML</span>
+                  </div>
+                  <p>负责 XML 发票解析工具的信息架构、核心流程与可视化呈现，推进软著申请，并搭建 UV / PV 数据观察路径，用于后续 SEO 与产品迭代。</p>
+                </div>
+              </article>
+
+              <article class="project">
+                <div class="thumb">
+                  <img src="./assets/project-upnow.png" alt="UPNOW 微运动健康产品图" />
+                </div>
+                <div>
+                  <div class="project-head">
+                    <h3>UPNOW 微运动健康产品</h3>
+                    <span class="chip">MAC APP / HEALTH</span>
+                  </div>
+                  <p>围绕久坐提醒与健康管理场景，参与 Mac App 产品定位、功能模块设计与 Flutter 页面实现推进，形成从需求到界面的完整产品链路。</p>
+                </div>
+              </article>
+
+              <article class="project">
+                <div class="thumb">
+                  <img src="./assets/project-images/xml发票查看器.png" alt="发票扫描去重 App 图" />
+                </div>
+                <div>
+                  <div class="project-head">
+                    <h3>发票扫描去重 / 发票侦探 App</h3>
+                    <span class="chip">SCAN / FLOW / APP</span>
+                  </div>
+                  <p>基于发票扫描、识别、去重与文件管理流程，梳理核心用户路径，优化功能优先级与使用体验，辅助产品表达与页面结构设计。</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <aside class="panel">
+          <div class="panel-inner">
+            <div class="eyebrow">Experience Timeline</div>
+            <h2 class="section-title">实践经历时间线<span class="section-en">Experience Timeline</span></h2>
+
+            <div class="timeline" aria-label="重点经历时间轴">
+              <article class="event">
+                <span class="dot" aria-hidden="true"></span>
+                <div class="event-card">
+                  <small>2025.07 - 2025.09</small>
+                  <div class="role-line">
+                    <h3>快智科技｜产品经理助理</h3>
+                    <b>PM Assistant</b>
+                  </div>
+                  <p>参与 iOS 工具类应用上架与分发流程，负责素材整理、审核信息、关键词、截图与发布跟进，协同产研推进需求交付。</p>
+                </div>
+              </article>
+
+              <article class="event">
+                <span class="dot" aria-hidden="true"></span>
+                <div class="event-card">
+                  <small>2024.09 - 至今</small>
+                  <div class="role-line">
+                    <h3>IDL 创新设计实验室｜用户体验设计师</h3>
+                    <b>UX Designer</b>
+                  </div>
+                  <p>参与风电事业等 B 端协作项目，负责流程需求梳理、交互方案与页面优化建议，辅助复杂业务界面设计。</p>
+                </div>
+              </article>
+
+              <article class="event">
+                <span class="dot" aria-hidden="true"></span>
+                <div class="event-card">
+                  <small>2025.01 - 2026.01</small>
+                  <div class="role-line">
+                    <h3>湖南工业大学双创班｜主任</h3>
+                    <b>Innovation Class Director</b>
+                  </div>
+                  <p>参与团队运营、项目分发、答辩材料准备与竞赛项目推进，协助完成项目路演与资源协调。</p>
+                </div>
+              </article>
+
+              <article class="event">
+                <span class="dot" aria-hidden="true"></span>
+                <div class="event-card">
+                  <small>2023.09 - 至今</small>
+                  <div class="role-line">
+                    <h3>工业设计 2301 班｜班长</h3>
+                    <b>Class Monitor</b>
+                  </div>
+                  <p>负责班级事务，连续获得校级优秀学生干部。</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <i class="shine one" aria-hidden="true"></i>
+      <i class="shine two" aria-hidden="true"></i>
+      <i class="shine three" aria-hidden="true"></i>
+      <i class="orbit one" aria-hidden="true"></i>
+      <i class="orbit two" aria-hidden="true"></i>
+      <img class="sticker star" src="./assets/stickers/s_10.png" alt="" />
+      <img class="sticker face" src="./assets/stickers/s_12.png" alt="" />
+      <img class="sticker hand" src="./assets/stickers/s_08.png" alt="" />
+      <i class="cursor" aria-hidden="true"></i>
+
+      <footer class="footer">
+        <span>GMT+8 CN · 2026</span>
+        <span>PRODUCT / UIUX / AI PRACTICE</span>
+        <span>RODIN · PROJECTS & EXPERIENCE</span>
+      </footer>
+    </main>
+  </body>
+</html>
