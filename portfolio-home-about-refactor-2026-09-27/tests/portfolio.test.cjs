@@ -323,6 +323,30 @@ test("About stays concise with proof metrics, working model, and calibrated expe
   await context.close();
 });
 
+test("About portrait uses a decoded web-optimized asset", async () => {
+  const context = await browser.newContext({ locale: "zh-CN", viewport: { width: 1440, height: 1000 } });
+  const page = await context.newPage();
+  await page.goto(`${baseUrl}#about`, { waitUntil: "networkidle" });
+
+  const portrait = page.locator("#about .about-portrait-card img");
+  const source = await portrait.getAttribute("src");
+  assert.match(source, /about-portrait\.webp$/);
+
+  const response = await page.request.get(new URL(source, baseUrl).href);
+  assert.equal(response.ok(), true);
+  assert.ok((await response.body()).byteLength < 1_500_000, "portrait asset should stay below 1.5 MB");
+
+  const decoded = await portrait.evaluate(async (image) => {
+    await image.decode();
+    return { complete: image.complete, width: image.naturalWidth, height: image.naturalHeight };
+  });
+  assert.equal(decoded.complete, true);
+  assert.ok(decoded.width >= 1000);
+  assert.ok(decoded.height >= 1300);
+
+  await context.close();
+});
+
 test("About uses a restrained typography scale and keeps recruiter facts close to the introduction", async () => {
   const context = await browser.newContext({ locale: "zh-CN", viewport: { width: 2048, height: 1152 } });
   const page = await context.newPage();
