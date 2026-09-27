@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rodin-danluo.github.io/luodan-Rodin-portfolio/</loc>
-    <lastmod>2026-07-27</lastmod>
+    <loc>https://rodin-danluo.github.io/</loc>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://rodin-danluo.github.io/luodan-Rodin-portfolio/project/今日去哪儿作品集.html</loc>
+    <loc>https://rodin-danluo.github.io/project/今日去哪儿作品集.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rodin-danluo.github.io/luodan-Rodin-portfolio/project/小匠行作品集.html</loc>
+    <loc>https://rodin-danluo.github.io/project/小匠行作品集.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rodin-danluo.github.io/luodan-Rodin-portfolio/project/ejiahu-portfolio/index.html</loc>
+    <loc>https://rodin-danluo.github.io/project/ejiahu-portfolio/index.html</loc>
     <priority>0.8</priority>
   </url>
 </urlset>

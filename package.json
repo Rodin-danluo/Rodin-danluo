@@ -1,0 +1,10 @@
+{
+  "name": "rodin-portfolio-pages",
+  "version": "2026.9.27",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-pages.mjs",
+    "test:deployment": "node --test tests/pages-deployment.test.cjs"
+  }
+}
